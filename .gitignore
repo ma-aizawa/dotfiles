@@ -6,6 +6,6 @@
 *~
 .*~
 *.swp
-app_secret.dat
 .sass-cache
 .sass-cache/*
+backup/*
