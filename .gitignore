@@ -1,0 +1,11 @@
+#*#
+*.DS_Store
+*.hg
+*.svn
+*.class
+*~
+.*~
+*.swp
+app_secret.dat
+.sass-cache
+.sass-cache/*
