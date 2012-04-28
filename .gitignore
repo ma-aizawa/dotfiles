@@ -9,3 +9,5 @@
 .sass-cache
 .sass-cache/*
 backup/*
+\#*\#
+elisp/*
