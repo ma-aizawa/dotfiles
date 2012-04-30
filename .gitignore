@@ -6,8 +6,9 @@
 *~
 .*~
 *.swp
-.sass-cache
-.sass-cache/*
 backup/*
 \#*\#
 elisp/*
+elisp/**/*
+elpa
+elpa/*
