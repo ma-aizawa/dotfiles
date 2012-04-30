@@ -20,7 +20,7 @@
 ;; "C-t" でウィンドウを切り替える。初期値はtranspose-chars
 (define-key global-map (kbd "C-t") 'other-window)
 
-;; Mac OS Xの場合のファイル名の設定
+;; Mac OS Xの場合のファイル名のエンコード設定
 (when (eq system-type 'darwin)
   (require 'ucs-normalize)
   (set-file-name-coding-system 'utf-8-hfs)
@@ -63,7 +63,7 @@
 ;; asciiフォントをRictyに
 (set-face-attribute 'default nil
                     :family "Ricty"
-                    :height 160)
+                    :height 135)
 ;; 日本語フォントもRicty
 (set-fontset-font
  nil 'japanese-jisx0208
@@ -101,4 +101,57 @@
 (set-face-underline-p 'show-paren-match-face "yellow")
 
 ;; バックアップファイルの作成場所をまとめる
+(add-to-list 'backup-directory-alist
+      (cons "." "~/.emacs.d/backups/"))
+(setq auto-save-file-name-transforms
+      `((".*" ,(expand-file-name "~/.emacs.d/backups/") t)))
+
+;; ファイルが#!から始まる場合、+xを付けて保存する
+(add-hook 'after-save-hook
+          'executable-make-buffer-file-executable-if-script-p)
+
+;; emacs-lisp-modeのフックをセット
+;; (add-hook 'emacs-lisp-mode-hook
+;;          '(lambda ()
+;;             (when (require 'eldoc nil t)
+;;               (setq eldoc-idle-dela 0.2)
+;;               (setq eldoc-echo-area-use-multiline-p t)
+;;               (turn-on-eldoc-mode))))
+;; emacs-lisp-mode-hook用の関数を定義
+(defun elisp-mode-hooks ()
+  "lisp-mode-hooks"
+  (when (require 'eldoc nil t)
+    (setq eldoc-idle-delay 0.2)
+    (setq eldoc-echo-area-use-multiline-p t)
+    (turn-on-eldoc-mode)))
+;; emacs-lisp-modeのフックをセット
+(add-hook 'emacs-lisp-mode-hook 'elisp-mode-hooks)
+
+;; auto-installの設定
+(when (require 'auto-install nil t)
+  ;; インストールディレクトリを設定する 初期値は~/.emacs.d/auto-install
+  (setq auto-install-directory "~/.emacs.d/elisp/")
+  ;; EmacsWikiに登録されているelispの名前を取得する
+  (auto-install-update-emacswiki-package-name t)
+  ;; install-elispの関数を利用可能にする
+  (auto-install-compatibility-setup))
+
+;; auto-installしたElisp
+;; redo+.el                   : redoを追加
+;; package.el                 : パッケージ管理を追加
+
+;; redo+の設定
+(when (require 'redo+ nil t)
+  ;; C-.にリドゥを割り当てる
+  (global-set-key (kbd "C-.") 'redo)
+  )
+;; package.elの設定
+(when (require 'package nil t)
+  ;; パッケージリポジトリにMarmaladeと開発者運営のELPAを追加
+  (add-to-list 'package-archives
+               '("marmalade" . "http://marmalade-repo.org/packages/"))
+  (add-to-list 'package-archives '("ELPA" . "http://tromey.com/elpa/"))
+  ;; インストールしたパッケージにロードパスを通して読み込む
+  (package-initialize))
+
 
