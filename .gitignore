@@ -16,4 +16,4 @@ backup/*
 colors/*
 bundle/*
 autoload/*
-url/*
+.emacs.d/url/*
