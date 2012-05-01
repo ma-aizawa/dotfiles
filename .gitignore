@@ -12,3 +12,8 @@ elisp
 elisp/*.*
 elpa
 elpa/*.*
+backup/*
+colors/*
+bundle/*
+autoload/*
+
