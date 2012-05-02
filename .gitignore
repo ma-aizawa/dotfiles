@@ -18,6 +18,6 @@ bundle/*
 autoload/*
 .emacs.d/url/*
 ac-dict/*
-share/*
-undohist/*
-bin/*
+.emacs.d/share/*
+.emacs.d/undohist/*
+.emacs.d/bin/*
