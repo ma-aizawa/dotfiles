@@ -20,4 +20,4 @@ autoload/*
 ac-dict/*
 share/*
 undohist/*
-
+bin/*
