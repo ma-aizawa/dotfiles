@@ -1,6 +1,5 @@
-;; ~/.emacs.d/elisp ディレクトリをロードパスに追加する
-;; ただし、add-to-load-path関数を作成した場合は不要
-;; (add-to-list 'load-path' "~/.emacs.d/elisp") 
+;; おまじない？
+(require 'cl nil t)
 
 ;; load-path を追加する関数を定義
 (defun add-to-load-path (&rest paths)
@@ -18,7 +17,7 @@
 (global-set-key (kbd "C-m") 'newline-and-indent)
 
 ;; "C-t" でウィンドウを切り替える。初期値はtranspose-chars
-(define-key global-map (kbd "C-t") 'other-window)
+;;(define-key global-map (kbd "C-t") 'other-window)
 
 ;; Mac OS Xの場合のファイル名のエンコード設定
 (when (eq system-type 'darwin)
@@ -154,4 +153,123 @@
   ;; インストールしたパッケージにロードパスを通して読み込む
   (package-initialize))
 
+;;; anything
+;; (auto-instlal-batch "anything")
+(when (require 'anything nil t)
+  (setq
+   ;; 候補を表示するまでの時間。デフォルトは0.5
+   anything-idle-delay 0.3
+   ;; タイプして再描写するまえの時間。デフォルトは0.1
+   anything-input-idle-delay 0.2
+   ;; 候補の最大表示数。デフォルトは50
+   anything-candidate-number-limit 100
+   ;; 候補が多い時に体感速度を早くする
+   anything-quick-update t
+   ;; 候補選択ショートカットをアルファベットに
+   anything-enalbe-shortcuts 'alphabet)
 
+  (when (require 'anything-config nil t)
+    ;; root権限でアクションを実行するときのコマンド
+    ;; デフォルトは"su"
+    (setq anything-su-or-sudo "sudo"))
+
+  (require 'anything-match-plugin nil t)
+
+  (when (and (executable-find "cmigemo")
+             (require 'migemo nil t))
+    (require 'anything-migemo nil t))
+
+  (when (require 'anything-complete nil t)
+    ;; lispシンボルの補完候補の再検索時間
+    (require 'anything-migemo nil t))
+
+  (require 'anything-show-complattion nil t)
+
+  (when (require 'auto-install nil t)
+    (require 'anything-auto-install nil t))
+
+  (when (require 'descbinds-anything nil t)
+    ;; describe-bindingsをanythingに置き換える
+    (descbinds-anything-install)))
+
+;; M-yにanything-show-kill-ringを割り当てる
+(define-key global-map (kbd "M-y") 'anything-show-kill-ring)
+
+;; auto-complateの設定
+(when (require 'auto-complate-config nil t)
+  (add-to-list 'ac-dictionary-directories
+               "~/.emacs.d/elisp/ac-dict")
+  (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
+  (ac-config-default))
+
+;; color-moccurの設定
+(when (require 'color-moccur nil t)
+  ;; M-oにoccur-by-moccurを割当
+  (define-key global-map (kbd "M-o") 'occur-by-moccur)
+  ;; スペース区切りでAND検索
+  (setq moccur-split-word t)
+  ;; ディレクトリ検索のとき除外するファイル
+  (add-to-list 'dmoccur-exclusion-mask "\\.DS_Store")
+  (add-to-list 'dmoccur-exclusion-mask "^#.+#$")
+  ;; Migemoを利用できる環境であればMigemoを使う
+  (when (and (executable-find "cmigemo")
+             (require 'migemo nil t))
+    (setq moccur-use-migemo t)))
+
+;; moccur-editの設定
+(require 'moccur-edit nil t)
+
+;; wgrepの設定
+(require 'wgrep nil t)
+
+;; undohistの設定
+(when (require 'undohist nil t)
+  (undohist-initialize))
+
+;; undo-treeの設定
+(when (require 'undo-tree nil t)
+  (global-undo-tree-mode))
+
+;; point-undoの設定
+(when (require 'point-undo nil t)
+  (define-key global-map (kbd "M-[")'point-undo)
+  (define-key global-map (kbd "M-]") 'point-redo)
+)
+
+;; ElScreenのプレフィックスキーを変更する（初期値はC-z）
+(setq elscreen-prefix-key (kbd "C-t"))
+(when (require 'elscreen nil t)
+  ;; C-z C-zをタイプした場合にデフォルトのC-zを利用する
+  (if window-system
+      (define-key elscreen-map (kbd "C-z") 'iconify-or-deiconify-frame)
+    (define-key elscreen-map (kbd "C-z") 'suspend-emacs)))
+
+;; howmメモ保存の場所
+(setq howm-directory (concat user-emacs-directory "howm"))
+;; howm-menuの言語を日本語に
+(setq howm-menu-lang 'ja)
+;; howmメモを1日1ファイルにする場合
+;; (setq howm-file-name-format "%Y/%m/%Y-%m-%d.howm")
+;; howm-modeを読み込む
+(when (require 'howm-mode nil t)
+  ;; C-c,,でhowm-menuを起動
+  (define-key global-map (kbd "C-c ,,") 'howm-menu))
+;; howmメモを保存と同時に閉じる
+(defun howm-save-buffer-and-kill()
+      "howmメモを保存と同時に閉じます。"
+      (interactive)
+      (when (and (buffer-file-name)
+                 (string-match "\\.howm" (buffer-file-name)))
+        (save-buffer)
+        (kill-buffer nil)))
+
+;; C-c C-cでメモの保存と同時にバッファを閉じる
+(define-key howm-mode-map (kbd "C-c C-c") 'howm-save-buffer-and-kill)
+
+;; cua-modeの設定
+(cua-mode t) ; cua-modeをオン
+(setq cua-emable-cua-key nil) ; CUAキーバインドを無効にする
+
+;; GitフロントエンドEggの設定
+(when (executable-find "git")
+  (require 'egg nil t))
