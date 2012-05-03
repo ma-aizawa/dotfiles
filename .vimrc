@@ -1,3 +1,33 @@
+"Vundle
+set nocompatible
+filetype off
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+
+Bundle 'unite.vim'
+"Bundle 'L9' 何のプラグインか忘れた
+Bundle 'caw'
+Bundle 'echodoc'
+Bundle 'eskk.vim'
+"Bundle 'fuzzyfinder' 何のプラグインか忘れた
+Bundle 'git-vim'
+Bundle 'neocomplcache'
+"projectは必須なので後で考える
+Bundle 'project' 
+Bundle 'quickrun'
+Bundle 'solarized'
+"Bundle 'surround' 何のプラグインか忘れた
+"taglistは出来れば欲しいので後で考える
+Bundle 'taglist'
+Bundle 'vim-ruby'
+Bundle 'vim-smartchr'
+Bundle 'vimfiler'
+Bundle 'vimproc'
+Bundle 'vimshell'
+
+filetype plugin indent on
+
 "バックアップファイル系
 set backupdir=~/.vim/backup
 set directory=~/.vim/backup
