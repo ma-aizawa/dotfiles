@@ -268,9 +268,16 @@
 
 ;; cua-modeの設定
 (cua-mode t) ; cua-modeをオン
-(setq cua-emable-cua-key nil) ; CUAキーバインドを無効にする
+(setq cua-enable-cua-keys nil) ; CUAキーバインドを無効にする
 
 ;; GitフロントエンドEggの設定
 (when (executable-find "git")
   (require 'egg nil t))
 
+;; haskell-mode
+(load "~/.emacs.d/elisp/haskell-mode/haskell-site-file")
+(add-to-list 'auto-mode-alist '("\\.hs$" . haskell-mode))
+(add-to-list 'auto-mode-alist '("\\.lhs$" . literate-haskell-mode))
+(add-to-list 'auto-mode-alist '("\\.cabal\\'" . haskell-cabal-mode))
+(add-hook 'haskell-mode-hook 'turn-on-haskell-docmode)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
