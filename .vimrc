@@ -83,11 +83,6 @@ if has('multi_byte_ime') || has('xim')
 	highlight CursorIM guibg=Purple guifg=NONE
 endif
 
-"pathogen プラグイン管理
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
-set helpfile=$VIMRUNTIME/doc/help.txt
-
 filetype on
 
 "eskk and neocomplcache
