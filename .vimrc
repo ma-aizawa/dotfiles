@@ -56,6 +56,7 @@ set backspace=indent,eol,start
 set wildchar=<Tab>
 set showmatch
 set nosmarttab
+set nojoinspaces
 
 set expandtab
 set autoindent
@@ -161,7 +162,7 @@ let g:neocomplcache_omni_patterns.ruby = '[^.*\t]\.\w*\|\h\w*::'
 autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 
 "補完候補が表示されている場合は確定。そうでない場合は改行
-inoremap pumvisible() ? neocomplcache#close_popup() : "\"
+"inoremap pumvisible() ? neocomplcache#close_popup() : "\"
 
 " pair close checker.
 " from othree vimrc ( http://github.com/othree/rc/blob/master/osx/.vimrc )
