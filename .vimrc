@@ -5,6 +5,9 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 
+"colorscheme
+Bundle 'Solarized'
+
 Bundle 'unite.vim'
 "Bundle 'L9' 何のプラグインか忘れた
 Bundle 'caw'
