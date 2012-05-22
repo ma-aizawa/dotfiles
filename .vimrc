@@ -16,14 +16,13 @@ endif
 NeoBundle 'Solarized'
 
 "vim-script by Shougo
-NeoBundle 'Shougo/vimproc'
+"NeoBundle 'Shougo/vimproc'
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimfiler'
 NeoBundle 'Shougo/neocomplcache'
 
 "vim-scritps repo
-"NeoBundle 'vim-scripts/project.vim' 
 NeoBundle 'vim-scripts/taglist.vim'
 
 "programming
@@ -38,6 +37,10 @@ NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'endwise.vim'
 "Util
 NeoBundle 'calendar.vim'
+
+"project.vim
+"http://www.vim.org/scripts/download_script.php?src_id=6273 project.vim
+NeoBundle 'project.vim' 
 
 "neobundle }}}
 
@@ -196,3 +199,13 @@ function! ClosePair(char)
 endfunction
 
 "補完系設定 }}}
+
+"plugin setting {{{
+
+"VimFiler {{{
+let g:vimfiler_as_default_explorer=1
+let g:vimfiler_edit_action="tabopen"
+let g:vimfiler_safe_mode_by_default=0
+"VimFiler }}}
+
+"plugin }}}

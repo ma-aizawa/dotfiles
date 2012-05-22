@@ -1,22 +1,19 @@
 "日本語の切り替え
 set noimdisable
 
-"Mac用とWindows用で分岐
+"Mac用とWindows用で分岐 {{{
 if has('gui_macvim')
   set noimdisableactivate
   "半透明
   set transparency=4
 else
   set guioptions=acefirR
+  set transparency=240
 endif
+"Mac用とWindows用で分岐 }}}
 
 "フォント
 set guifont=Ricty\ Regular:h13
-
-"幅
-set columns=150
-"高さ
-set lines=50
 
 "カラースキーマ
 "solarizedを読み込んだ後にアレンジ {{{
@@ -40,23 +37,14 @@ if g:colors_name == 'solarized'
 endif
 "}}}
 
+"gui settings {{{
+
+"幅
+set columns=150
+"高さ
+set lines=50
 "現在行に色をつける
 set cursorline
 set cursorcolumn
+"gui settings }}}
 
-"タブ
-set expandtab
-set tabstop=2
-
-
-"VimFiler
-let g:vimfiler_as_default_explorer=1
-let g:vimfiler_edit_action="tabopen"
-let g:vimfiler_safe_mode_by_default=0
-
-
-"改行のあれ
-set formatoptions-=or
-
-"foreman start
-nnoremap <F7> :!foreman start<CR>
