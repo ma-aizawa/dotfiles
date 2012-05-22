@@ -23,7 +23,7 @@ NeoBundle 'Shougo/vimfiler'
 NeoBundle 'Shougo/neocomplcache'
 
 "vim-scritps repo
-NeoBundle 'vim-scripts/project.vim' 
+"NeoBundle 'vim-scripts/project.vim' 
 NeoBundle 'vim-scripts/taglist.vim'
 
 "programming
@@ -133,7 +133,7 @@ nnoremap <Leader><Enter> o<ESC>
 "編集用 }}}
 
 "書いているコードの実行 {{{
-nnoremap <F8> :call RunProgram()<CR>
+"nnoremap <F8> :call RunProgram()<CR>
 
 "scalaのコマンド
 command! Scalac !scalac %
