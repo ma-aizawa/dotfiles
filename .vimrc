@@ -40,6 +40,7 @@ NeoBundle 'calendar.vim'
 
 "project.vim
 "http://www.vim.org/scripts/download_script.php?src_id=6273 project.vim
+"最初に入れないとvim-scripts/project.vim.gitを入れてしまうので注意
 NeoBundle 'project.vim' 
 
 "neobundle }}}
