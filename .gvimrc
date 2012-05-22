@@ -32,7 +32,7 @@ if g:colors_name == 'solarized'
   hi LineNr guifg=#aaaaaa 
   "コメントを少し明るく
   hi Comment guifg=#b4b4b4 gui=underline
-  hi vimLineComment links to Comment
+  hi vimLineComment guifg=#b4b4b4 gui=underline
   "現在行の設定
   hi CursorLine guibg=#402305
   "現在列の設定

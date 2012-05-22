@@ -1,53 +1,54 @@
-"Vundle
+"neobundle {{{
+
+"NeoBundle 準備
 set nocompatible
 filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+filetype plugin indent off
+"set rtp+=~/.vim/bundle/vundle/
+"call vundle#rc()
 
+if has('vim_starting')
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
+  call neobundle#rc(expand('~/.vim/bundle/'))
+endif
 
 "colorscheme
-Bundle 'Solarized'
+NeoBundle 'Solarized'
 
-Bundle 'unite.vim'
-"Bundle 'L9' 何のプラグインか忘れた
-Bundle 'caw'
-Bundle 'echodoc'
-Bundle 'eskk.vim'
-"Bundle 'fuzzyfinder' 何のプラグインか忘れた
-Bundle 'git-vim'
-Bundle 'neocomplcache'
-Bundle 'endwise.vim'
-"projectは必須だけどBundleできず
-Bundle 'project' 
-Bundle 'quickrun'
-Bundle 'solarized'
-"Bundle 'surround' 何のプラグインか忘れた
-"taglistは出来れば欲しいけどBundleできず
-Bundle 'taglist'
-Bundle 'vim-ruby'
-Bundle 'vim-smartchr'
-Bundle 'vimfiler'
-Bundle 'vimproc'
-Bundle 'vimshell'
+"vim-script by Shougo
+NeoBundle 'Shougo/vimproc'
+NeoBundle 'Shougo/vimshell'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/vimfiler'
+NeoBundle 'Shougo/neocomplcache'
+
+"vim-scritps repo
+NeoBundle 'vim-scripts/project.vim' 
+NeoBundle 'vim-scripts/taglist.vim'
+
+"programming
+NeoBundle 'motemen/git-vim'
+NeoBundle 'quickrun'
 "Scala
-Bundle 'vim-scala'
-Bundle 'scala.vim'
-"rails
-Bundle 'rails.vim'
-"便利系
-Bundle 'calendar.vim'
+NeoBundle 'vim-scala'
+NeoBundle 'scala.vim'
+"Ruby
+NeoBundle 'rails.vim'
+NeoBundle 'vim-ruby/vim-ruby'
+NeoBundle 'endwise.vim'
+"Util
+NeoBundle 'calendar.vim'
 
-filetype plugin indent on
+"neobundle }}}
+
+"基本的な設定 {{{
 
 "バックアップファイル系
 set backupdir=~/.vim/backup
 set directory=~/.vim/backup
 
-"シンタックス
 syntax on
-"行番号の表示
 set number 
-"インデント
 set list
 set listchars=eol:$,tab:>;,extends:<
 set shiftwidth=2
@@ -60,6 +61,7 @@ set wildchar=<Tab>
 set showmatch
 set nosmarttab
 set nojoinspaces
+set noincsearch
 
 set expandtab
 set autoindent
@@ -67,29 +69,6 @@ set nocompatible
 filetype on
 filetype indent on
 filetype plugin on
-
-"色をつける
-augroup InsertHook
-	autocmd!
-	autocmd InsertEnter * highlight StatusLine guifg=#ddcc45 guibg=#2E4340
-	autocmd InsertLeave * highlight StatusLine guifg=#2E4340 guibg=#ddcc45 
-augroup END
-
-"日本語入力をリセット
-au BufNewFile,BufRead * set iminsert=0
-
-"日本語入力時のカーソル
-if has('multi_byte_ime') || has('xim')
-	highlight CursorIM guibg=Purple guifg=NONE
-endif
-
-filetype on
-
-"eskk and neocomplcache
-let g:gskk#enable_completion = 1
-
-"インクリメントサーチオフ
-set noincsearch
 
 "行頭のコメントをやめる
 set formatoptions-=o
@@ -99,21 +78,20 @@ set formatoptions-=r
 set splitbelow
 set splitright
 
-"書いているコードの実行
-nnoremap <F8> :call RunProgram()<CR>
+"基本的な設定 }}}
 
-function RunProgram()
-  let ext = expand("%:e")
-  if ext == "rb"
-    :w<CR>:!ruby %<CR>
-  elseif ext == "scala"
-    w
-    !scalac %
-    !scala -classpath . %<
-  endif
-endfunction
+"日本語入力 {{{
+"日本語入力をリセット
+au BufNewFile,BufRead * set iminsert=0
 
-"折りたたみ
+"日本語入力時のカーソル
+if has('multi_byte_ime') || has('xim')
+	highlight CursorIM guibg=Purple guifg=NONE
+endif
+
+"日本語入力 }}}
+
+"折りたたみ {{{
 set foldmethod=syntax
 
 "rubyの折りたたみ設定をまねしてみる 
@@ -129,18 +107,63 @@ augroup foldmethod-syntax
 	\                   |   setlocal foldmethod=syntax
 	\                   | endif
 augroup END
+"}}}
+
+"vimrc編集時用の設定 {{{
+augroup EditVim
+autocmd!
+"vimrcの時のみ折りたたみパターンを変更
+autocmd FileType vim setlocal foldmethod=marker
+autocmd FileType vim setlocal formatoptions-=ro
+augroup END
+"vimrc用 }}}
+
+"編集用 {{{
+
+"色をつける
+augroup InsertHook
+	autocmd!
+	autocmd InsertEnter * highlight StatusLine guifg=#ddcc45 guibg=#2E4340
+	autocmd InsertLeave * highlight StatusLine guifg=#2E4340 guibg=#ddcc45 
+augroup END
 
 "改行
 nnoremap <Leader><Enter> o<ESC>
 
-"git push heroku master
-nnoremap <Leader>gh :GitPush heroku master<CR>
+"編集用 }}}
+
+"書いているコードの実行 {{{
+nnoremap <F8> :call RunProgram()<CR>
 
 "scalaのコマンド
 command! Scalac !scalac %
 command! Scala !scala -classpath . %
 
-"補完
+function! RunProgram()
+  let ext = expand("%:e")
+  if ext == "rb"
+    :w<CR>:!ruby %<CR>
+  elseif ext == "scala"
+    w
+    !scalac %
+    !scala -classpath . %<
+  endif
+endfunction
+
+"書いているコードの実行 }}}
+
+"git ショートカット {{{
+"git-vimがあるので設定はほとんど不要
+
+"git push heroku master
+nnoremap <Leader>gh :GitPush heroku master<CR>
+
+"git ショートカット }}}
+
+"補完系設定 {{{
+"eskk and neocomplcache
+let g:gskk#enable_completion = 1
+
 let g:neocomplcache_enable_at_startup = 1
 
 "大文字が入力されるまで大文字小文字の区別を無視する
@@ -164,10 +187,12 @@ autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 
 " pair close checker.
 " from othree vimrc ( http://github.com/othree/rc/blob/master/osx/.vimrc )
-function ClosePair(char)
+function! ClosePair(char)
   if getline('.')[col('.') - 1] == a:char
     return "\"
   else
     return a:char
   endif
 endfunction
+
+"補完系設定 }}}

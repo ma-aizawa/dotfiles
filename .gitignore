@@ -8,6 +8,7 @@
 *.swp
 backup/*
 \#*\#
+
 elisp
 elisp/*.*
 elpa
