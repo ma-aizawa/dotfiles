@@ -4,8 +4,6 @@
 set nocompatible
 filetype off
 filetype plugin indent off
-"set rtp+=~/.vim/bundle/vundle/
-"call vundle#rc()
 
 if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim/
@@ -37,6 +35,8 @@ NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'endwise.vim'
 "Util
 NeoBundle 'calendar.vim'
+"zencoding-vim
+NeoBundle 'mattn/zencoding-vim'
 
 "project.vim
 "http://www.vim.org/scripts/download_script.php?src_id=6273 project.vim
