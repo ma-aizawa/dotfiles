@@ -37,6 +37,8 @@ NeoBundle 'endwise.vim'
 NeoBundle 'calendar.vim'
 "zencoding-vim
 NeoBundle 'mattn/zencoding-vim'
+NeoBundle 'mattn/webapi-vim'
+NeoBundle 'mattn/gist-vim'
 
 "project.vim
 "http://www.vim.org/scripts/download_script.php?src_id=6273 project.vim
@@ -208,5 +210,9 @@ let g:vimfiler_as_default_explorer=1
 let g:vimfiler_edit_action="tabopen"
 let g:vimfiler_safe_mode_by_default=0
 "VimFiler }}}
+
+"Gist-Vim {{{
+let g:gist_open_browser_after_post = 1
+"Gist-Vim }}}
 
 "plugin }}}
