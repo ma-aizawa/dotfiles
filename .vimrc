@@ -6,7 +6,7 @@ filetype off
 filetype plugin indent off
 
 if has('vim_starting')
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
+  set runtimepath& runtimepath+=~/.vim/bundle/neobundle.vim/
   call neobundle#rc(expand('~/.vim/bundle/'))
 endif
 
@@ -117,11 +117,18 @@ augroup END
 
 "vimrc編集時用の設定 {{{
 augroup EditVim
-autocmd!
-"vimrcの時のみ折りたたみパターンを変更
-autocmd FileType vim setlocal foldmethod=marker
-autocmd FileType vim setlocal formatoptions-=ro
+  autocmd!
+  "vimrcの時のみ折りたたみパターンを変更
+  autocmd FileType vim setlocal foldmethod=marker
+  autocmd FileType vim setlocal formatoptions-=ro
 augroup END
+
+"Open vimrc
+nnoremap <Space><Space> :<C-u>edit ~/.vimrc<CR>:e %<CR>
+nnoremap <Space><S-Space> :<C-u>edit ~/.gvimrc<CR>:e %<CR>
+"Reload vimrc
+nnoremap <C-Space><C-Space> :<C-u>source ~/.vimrc<CR>:<C-u>source ~/.gvimrc<CR>
+
 "vimrc用 }}}
 
 "編集用 {{{
@@ -129,12 +136,23 @@ augroup END
 "色をつける
 augroup InsertHook
 	autocmd!
-	autocmd InsertEnter * highlight StatusLine guifg=#ddcc45 guibg=#2E4340
+  autocmd InsertEnter * highlight StatusLine guifg=#ddcc45 guibg=#2E4340
 	autocmd InsertLeave * highlight StatusLine guifg=#2E4340 guibg=#ddcc45 
 augroup END
 
 "改行
 nnoremap <Leader><Enter> o<ESC>
+
+"マークの確認
+nnoremap <Space>m :<C-u>marks<CR>
+"レジスタの確認
+nnoremap <Space>r :<C-u>registers<CR>
+
+"検索時に/を入力
+cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
+
+":helpのショートカット
+nnoremap <C-h> :<C-u>help<Space>
 
 "編集用 }}}
 
