@@ -174,6 +174,9 @@ function! RunProgram()
   endif
 endfunction
 
+"RailsをRSpecでテスト
+nnoremap <Leader><Space> :!rake spec<CR>
+
 "書いているコードの実行 }}}
 
 "git ショートカット {{{
