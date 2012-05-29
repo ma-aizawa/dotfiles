@@ -33,12 +33,12 @@ NeoBundle 'scala.vim'
 NeoBundle 'rails.vim'
 NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'endwise.vim'
-"Util
-NeoBundle 'calendar.vim'
 "zencoding-vim
 NeoBundle 'mattn/zencoding-vim'
 NeoBundle 'mattn/webapi-vim'
 NeoBundle 'mattn/gist-vim'
+"memo
+NeoBundle 'migrs/qfixhowm'
 
 "project.vim
 "http://www.vim.org/scripts/download_script.php?src_id=6273 project.vim
