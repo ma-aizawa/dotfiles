@@ -233,4 +233,10 @@ let g:vimfiler_safe_mode_by_default=0
 let g:gist_open_browser_after_post = 1
 "Gist-Vim }}}
 
+"QFixHowm {{{
+if has('mac')
+  let howm_dir = '~/Dropbox/private/howm'
+endif
+"QFixHowm }}}
+
 "plugin }}}
