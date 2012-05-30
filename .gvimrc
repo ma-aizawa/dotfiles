@@ -33,7 +33,7 @@ if g:colors_name == 'solarized'
   "現在行の設定
   hi CursorLine guibg=#402305
   "現在列の設定
-  hi CursorColumn guibg=#094856
+  hi CursorColumn guibg=#0948a6
 endif
 "}}}
 
