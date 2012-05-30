@@ -174,6 +174,9 @@ function! RunProgram()
   endif
 endfunction
 
+"RailsをRSpecでテスト
+nnoremap <Leader><Space> :!rake spec<CR>
+
 "書いているコードの実行 }}}
 
 "git ショートカット {{{
@@ -235,6 +238,8 @@ let g:gist_open_browser_after_post = 1
 
 "QFixHowm {{{
 if has('mac')
+  let howm_dir = '~/Dropbox/private/howm'
+elseif has('win64')
   let howm_dir = '~/Dropbox/private/howm'
 endif
 "QFixHowm }}}
