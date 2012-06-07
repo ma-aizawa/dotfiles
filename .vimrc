@@ -14,7 +14,7 @@ endif
 NeoBundle 'Solarized'
 
 "vim-script by Shougo
-"NeoBundle 'Shougo/vimproc'
+NeoBundle 'Shougo/vimproc'
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimfiler'
@@ -33,6 +33,7 @@ NeoBundle 'scala.vim'
 NeoBundle 'rails.vim'
 NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'endwise.vim'
+NeoBundle 'thinca/vim-ref'
 "zencoding-vim
 NeoBundle 'mattn/zencoding-vim'
 NeoBundle 'mattn/webapi-vim'

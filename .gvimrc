@@ -1,19 +1,25 @@
 "日本語の切り替え
 set noimdisable
 
-"Mac用とWindows用で分岐 {{{
+"OSで分岐 {{{
+"Mac
 if has('gui_macvim')
   set noimdisableactivate
   "半透明
   set transparency=4
-else
+  "フォント
+  set guifont=Ricty\ Regular:h13
+"Windows
+elseif has('win64')
   set guioptions=acefirR
   set transparency=240
+  "フォント
+  set guifont=Ricty\ Regular:h13
+"Linux
+else
+  set guifont=Ricty-10.5
 endif
 "Mac用とWindows用で分岐 }}}
-
-"フォント
-set guifont=Ricty\ Regular:h13
 
 "カラースキーマ
 "solarizedを読み込んだ後にアレンジ {{{
@@ -27,7 +33,7 @@ if g:colors_name == 'solarized'
   hi Normal guifg=#E7E7E7
   "行番号を少し明るく
   hi LineNr guifg=#aaaaaa 
-  "コメントを少し明るく
+  "コメントを少し明るく・下線にする
   hi Comment guifg=#b4b4b4 gui=underline
   hi vimLineComment guifg=#b4b4b4 gui=underline
   "現在行の設定
