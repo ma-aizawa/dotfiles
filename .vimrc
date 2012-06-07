@@ -17,7 +17,6 @@ NeoBundle 'Solarized'
 NeoBundle 'Shougo/vimproc'
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/vimfiler'
 NeoBundle 'Shougo/neocomplcache'
 
 "vim-scritps repo
@@ -41,10 +40,11 @@ NeoBundle 'mattn/gist-vim'
 "memo
 NeoBundle 'migrs/qfixhowm'
 
-"project.vim
-"http://www.vim.org/scripts/download_script.php?src_id=6273 project.vim
-"最初に入れないとvim-scripts/project.vim.gitを入れてしまうので注意
-NeoBundle 'project.vim' 
+"File Explorer
+NeoBundle 'vim-scripts/opsplorer'
+
+"project.vimの代わりに採用
+NeoBundle 'scrooloose/nerdtree'
 
 "neobundle }}}
 
