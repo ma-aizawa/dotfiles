@@ -158,7 +158,6 @@ nnoremap <C-h> :<C-u>help<Space>
 "編集用 }}}
 
 "書いているコードの実行 {{{
-"nnoremap <F8> :call RunProgram()<CR>
 
 "scalaのコマンド
 command! Scalac !scalac %
@@ -176,7 +175,7 @@ function! RunProgram()
 endfunction
 
 "RailsをRSpecでテスト
-nnoremap <Leader><Space> :!rake spec<CR>
+nnoremap <Leader><Space> :<C-u>call vimproc#system('rspec ' + shellescape(expand('%')))<CR>
 
 "書いているコードの実行 }}}
 
@@ -244,5 +243,28 @@ elseif has('win64')
   let howm_dir = '~/Dropbox/private/howm'
 endif
 "QFixHowm }}}
+
+"rubycomplete {{{
+"from http://generation1986.g.hatena.ne.jp/ukstudio/20080223
+"<TAB>で補完
+function InsertTabWrapper()
+  if pumvisible()
+    return "\<c-n>"
+  endif
+  let col = col('.') - 1
+  if !col || getline('.')[col -1] !~ '\k\|<\|/'
+    return "\<tab>"
+  elseif exists('&omnifunc') && &omnifunc == ''
+    return "\<c-n>"
+  else
+    return "\<c-x>\<c-o>"
+  endif
+endfunction
+inoremap <tab> <c-r>=InsertTabWrapper()<cr>
+
+let g:rubycomplete_buffer_loading = 1
+let g:rubycomplete_rails = 1
+let g:rubycomplete_classes_in_global = 1
+"rubycomplete }}}
 
 "plugin }}}
