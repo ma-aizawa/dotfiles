@@ -46,9 +46,9 @@ endif
 "gui settings {{{
 
 "幅
-set columns=150
+set columns=180
 "高さ
-set lines=50
+set lines=62
 "現在行に色をつける
 set cursorline
 set cursorcolumn

@@ -1,3 +1,5 @@
+" vim:set foldmethod=marker
+" check key map -> :verbose [in]map
 "neobundle {{{
 
 "NeoBundle 準備
@@ -18,6 +20,7 @@ NeoBundle 'Shougo/vimproc'
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'Shougo/vimfiler'
 
 "vim-scritps repo
 NeoBundle 'vim-scripts/taglist.vim'
@@ -69,10 +72,12 @@ set showmatch
 set nosmarttab
 set nojoinspaces
 set noincsearch
+set ruler
 
 set expandtab
 set autoindent
 set nocompatible
+set textwidth=0
 filetype on
 filetype indent on
 filetype plugin on
@@ -128,7 +133,22 @@ augroup END
 nnoremap <Space><Space> :<C-u>edit ~/.vimrc<CR>:e %<CR>
 nnoremap <Space><S-Space> :<C-u>edit ~/.gvimrc<CR>:e %<CR>
 "Reload vimrc
-nnoremap <C-Space><C-Space> :<C-u>source ~/.vimrc<CR>:<C-u>source ~/.gvimrc<CR>
+nnoremap <C-Space><C-Space> :<C-u>source ~/.vimrc<CR>:<C-u>source ~/.gvimrc<CR>:<C-u>e %<CR>
+
+"count vim power
+function! CountVimPower()
+  new
+  read ~/.vimrc
+  read ~/.gvimrc
+  %s/^\s\+//g
+  g/^"/d
+  g/^\n/d
+  normal G
+  let s:linePower = line('.')
+  q!
+  echo 'Your vim power is ' . s:linePower
+endfunction
+
 
 "vimrc用 }}}
 
@@ -154,6 +174,14 @@ cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
 
 ":helpのショートカット
 nnoremap <C-h> :<C-u>help<Space>
+
+"tabnew
+nnoremap <Leader>xt :<C-u>:tabnew<CR>
+
+"diff
+nnoremap <Leader>dt :<C-u>diffthis<CR>
+nnoremap <Leader>du :<C-u>diffupdate<CR>
+nnoremap <Leader>do :<C-u>diffoff<CR>
 
 "編集用 }}}
 
@@ -247,7 +275,7 @@ endif
 "rubycomplete {{{
 "from http://generation1986.g.hatena.ne.jp/ukstudio/20080223
 "<TAB>で補完
-function InsertTabWrapper()
+function! InsertTabWrapper()
   if pumvisible()
     return "\<c-n>"
   endif
@@ -266,5 +294,37 @@ let g:rubycomplete_buffer_loading = 1
 let g:rubycomplete_rails = 1
 let g:rubycomplete_classes_in_global = 1
 "rubycomplete }}}
+
+"VimShell {{{
+nnoremap <Leader>xs :<C-u>10new<CR>:<C-u>VimShell<CR>
+"VimShell }}}
+
+" unite.vim {{{
+
+" 入力モードで開始する
+let g:unite_enable_start_insert=1
+" バッファ一覧
+nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
+" ファイル一覧
+nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+" レジスタ一覧
+nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
+" 最近使用したファイル一覧
+nnoremap <silent> ,um :<C-u>Unite file_mru<CR>
+" 常用セット
+nnoremap <silent> ,uu :<C-u>Unite buffer file_mru<CR>
+" 全部乗せ
+nnoremap <silent> ,ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
+
+" ウィンドウを分割して開く
+au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+" ウィンドウを縦に分割して開く
+au FileType unite nnoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
+au FileType unite inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
+" ESCキーを2回押すと終了する
+au FileType unite nnoremap <silent> <buffer> <ESC><ESC> q
+au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
+" unit.vim }}}
 
 "plugin }}}
