@@ -18,6 +18,7 @@ NeoBundle 'Shougo/vimproc'
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'Shougo/vimfiler'
 
 "vim-scritps repo
 NeoBundle 'vim-scripts/taglist.vim'
@@ -125,10 +126,10 @@ augroup EditVim
 augroup END
 
 "Open vimrc
-nnoremap <Space><Space> :<C-u>edit ~/.vimrc<CR>:e %<CR>
-nnoremap <Space><S-Space> :<C-u>edit ~/.gvimrc<CR>:e %<CR>
+nnoremap <Leader>v<Space> :<C-u>edit ~/.vimrc<CR>:e %<CR>
+nnoremap <Leader>v<S-Space> :<C-u>edit ~/.gvimrc<CR>:e %<CR>
 "Reload vimrc
-nnoremap <C-Space><C-Space> :<C-u>source ~/.vimrc<CR>:<C-u>source ~/.gvimrc<CR>
+nnoremap <Leader>v<C-Space> :<C-u>source ~/.vimrc<CR>:<C-u>source ~/.gvimrc<CR>
 
 "vimrc用 }}}
 
@@ -143,11 +144,6 @@ augroup END
 
 "改行
 nnoremap <Leader><Enter> o<ESC>
-
-"マークの確認
-nnoremap <Space>m :<C-u>marks<CR>
-"レジスタの確認
-nnoremap <Space>r :<C-u>registers<CR>
 
 "検索時に/を入力
 cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
@@ -175,7 +171,8 @@ function! RunProgram()
 endfunction
 
 "RailsをRSpecでテスト
-nnoremap <Leader><Space> :<C-u>call vimproc#system('rspec ' + shellescape(expand('%')))<CR>
+nnoremap <Leader><Space> :<C-u>cgete vimproc#system('rspec -l ' + line('.') + ' ' + shellescape(expand('%')))<CR>
+nnoremap <Leader><C-Space> :<C-u>cgete vimproc#system('rspec ' + shellescape(expand('%)))<CR>
 
 "書いているコードの実行 }}}
 
@@ -188,6 +185,11 @@ nnoremap <Leader>gh :GitPush heroku master<CR>
 "git ショートカット }}}
 
 "補完系設定 {{{
+"ポップアップメニューの色
+hi Pmenu ctermbg=8 guibg=#606060
+hi PmenuSel ctermbg=12 guibg=SlateBlue
+hi PmenuSbar ctermbg=0 guibg=#404040
+
 "eskk and neocomplcache
 let g:gskk#enable_completion = 1
 
@@ -247,7 +249,7 @@ endif
 "rubycomplete {{{
 "from http://generation1986.g.hatena.ne.jp/ukstudio/20080223
 "<TAB>で補完
-function InsertTabWrapper()
+function! InsertTabWrapper()
   if pumvisible()
     return "\<c-n>"
   endif
@@ -268,3 +270,4 @@ let g:rubycomplete_classes_in_global = 1
 "rubycomplete }}}
 
 "plugin }}}
+
