@@ -330,3 +330,7 @@ au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
 
 "plugin }}}
 
+" 色々な設定 {{{
+nnoremap <Leader>cs :<C-u>VimShell<CR>
+nnoremap <Leader>cf :<C-u>VimFiler<CR>
+" }}}
