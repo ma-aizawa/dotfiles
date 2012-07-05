@@ -8,9 +8,13 @@ filetype off
 filetype plugin indent off
 
 if has('vim_starting')
-  set runtimepath& runtimepath+=~/.vim/bundle/neobundle.vim/
-  call neobundle#rc(expand('~/.vim/bundle/'))
+  let g:default_runtimepath=&runtimepath
 endif
+exec 'set runtimepath='.g:default_runtimepath
+set runtimepath& runtimepath+=~/.vim/bundle/neobundle.vim/
+call neobundle#rc(expand('~/.vim/bundle/'))
+
+call HelpDocLoad('~/.vim/bundle')
 
 "colorscheme
 NeoBundle 'Solarized'
@@ -33,7 +37,7 @@ NeoBundle 'gregsexton/gitv'
 NeoBundle 'vim-scala'
 NeoBundle 'scala.vim'
 "Ruby
-NeoBundle 'rails.vim'
+NeoBundle 'tpope/vim-rails'
 NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'endwise.vim'
 NeoBundle 'thinca/vim-ref'
@@ -49,6 +53,9 @@ NeoBundle 'vim-scripts/opsplorer'
 
 "project.vimの代わりに採用
 NeoBundle 'scrooloose/nerdtree'
+
+"My plugin
+NeoBundle 'MasahiroAizawa/helptags-vim'
 
 "neobundle }}}
 
@@ -152,6 +159,10 @@ endfunction
 
 "vimrc用 }}}
 
+" help {{{
+set helplang=en,ja
+"}}}
+
 "編集用 {{{
 
 "色をつける
@@ -196,10 +207,6 @@ function! RunProgram()
     !scala -classpath . %<
   endif
 endfunction
-
-"RailsをRSpecでテスト
-nnoremap <Leader><Space> :<C-u>cgete vimproc#system('rspec -l ' + line('.') + ' ' + shellescape(expand('%')))<CR>
-nnoremap <Leader><C-Space> :<C-u>cgete vimproc#system('rspec ' + shellescape(expand('%)))<CR>
 
 "書いているコードの実行 }}}
 
@@ -292,7 +299,7 @@ endfunction
 inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 
 let g:rubycomplete_buffer_loading = 1
-let g:rubycomplete_rails = 1
+let g:rubycomplete_rails = 0
 let g:rubycomplete_classes_in_global = 1
 "rubycomplete }}}
 
@@ -328,9 +335,44 @@ au FileType unite nnoremap <silent> <buffer> <ESC><ESC> q
 au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
 " unit.vim }}}
 
+" helptag {{{
+HelpDocLoad('~/.vim/bundle')
+" }}}
+
 "plugin }}}
 
 " 色々な設定 {{{
 nnoremap <Leader>cs :<C-u>VimShell<CR>
 nnoremap <Leader>cf :<C-u>VimFiler<CR>
+" }}}
+
+" for Ruby {{{
+set tags+=~/program/ruby/.lib_tags
+
+function! RunRspec(line_run)
+  let s:filename = expand('%')
+
+  let s:line = ""
+  if a:line_run == 1
+    let s:line = " -l " . line('.')
+  endif
+
+  let s:bufname = "[spec] " . s:filename
+  if bufexists(s:bufname)
+    let s:bufnum = bufnr(s:bufname)
+    execute "bw" . s:bufnum
+  endif
+
+  execute "VimShellInteractive rspec " . s:line . " " . s:filename
+  nnoremap <silent><buffer> q bw
+  silent! file `=s:bufname`
+  nnoremap <silent><buffer> q bw
+endfunction
+
+command! RunRspec :call RunRspec(0)
+command! RunRspecL :call RunRspec(1)
+
+nnoremap <Leader><Space> :<C-u>RunRspec<CR>
+nnoremap <Leader><C-Space> :<C-u>RunRspecL<CR>
+
 " }}}
