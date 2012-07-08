@@ -32,7 +32,7 @@ if g:colors_name == 'solarized'
   "通常の文字を少し明るく
   hi Normal guifg=#E7E7E7
   "行番号を少し明るく
-  hi LineNr guifg=#aaaaaa 
+  hi LineNr guifg=#aaaaaa
   "コメントを少し明るく・下線にする
   hi Comment guifg=#b4b4b4 gui=underline
   hi vimLineComment guifg=#b4b4b4 gui=underline
@@ -59,6 +59,9 @@ augroup WhiteSpaceEOL
   autocmd!
   autocmd WinEnter * match WhitespaceEOL /\s\+$/
 augroup END
+
+"折り返しオフ
+set textwidth=0
 
 "gui settings }}}
 
