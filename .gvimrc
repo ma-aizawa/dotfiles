@@ -52,5 +52,7 @@ set lines=62
 "現在行に色をつける
 set cursorline
 set cursorcolumn
+"折り返しオフ
+set textwidth=0
 "gui settings }}}
 

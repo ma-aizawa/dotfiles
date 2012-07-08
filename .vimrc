@@ -54,6 +54,10 @@ NeoBundle 'scrooloose/nerdtree'
 
 "基本的な設定 {{{
 
+"キーマッピング
+nnoremap J gJ
+nnoremap gJ J
+
 "バックアップファイル系
 set backupdir=~/.vim/backup
 set directory=~/.vim/backup
