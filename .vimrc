@@ -33,6 +33,7 @@ NeoBundle 'vim-scripts/taglist.vim'
 NeoBundle 'motemen/git-vim'
 NeoBundle 'quickrun'
 NeoBundle 'gregsexton/gitv'
+NeoBundle 'https://github.com/tpope/vim-fugitive.git'
 "Scala
 NeoBundle 'vim-scala'
 NeoBundle 'scala.vim'
@@ -50,8 +51,6 @@ NeoBundle 'migrs/qfixhowm'
 
 "File Explorer
 NeoBundle 'vim-scripts/opsplorer'
-
-"project.vimの代わりに採用
 NeoBundle 'scrooloose/nerdtree'
 
 "My plugin
@@ -70,7 +69,7 @@ set backupdir=~/.vim/backup
 set directory=~/.vim/backup
 
 syntax on
-set number 
+set number
 set list
 set listchars=eol:$,tab:>;,extends:<
 set shiftwidth=2
@@ -120,7 +119,7 @@ endif
 "折りたたみ {{{
 set foldmethod=syntax
 
-"rubyの折りたたみ設定をまねしてみる 
+"rubyの折りたたみ設定をまねしてみる
 set foldlevel=1
 set foldnestmax=2
 
@@ -175,7 +174,7 @@ set helplang=en,ja
 augroup InsertHook
 	autocmd!
   autocmd InsertEnter * highlight StatusLine guifg=#ddcc45 guibg=#2E4340
-	autocmd InsertLeave * highlight StatusLine guifg=#2E4340 guibg=#ddcc45 
+	autocmd InsertLeave * highlight StatusLine guifg=#2E4340 guibg=#ddcc45
 augroup END
 
 "改行
@@ -355,6 +354,19 @@ augroup CD
   autocmd!
   autocmd BufAdd * execute ":lcd " . expand('%:p:h')
 augroup END
+
+"末尾のスペースを削除
+function! RemoveTailWhiteSpaces()
+  let s:before_line = line('.')
+  silent! %s/\s\+$//g
+  execute s:before_line
+endfunction
+
+augroup RemoveTailWhiteSpacesGroup
+  autocmd!
+  autocmd BufWritePre * :call RemoveTailWhiteSpaces()
+augroup END
+
 " }}}
 
 " for Ruby {{{
@@ -386,4 +398,35 @@ command! RunRspecL :call RunRspec(1)
 nnoremap <Leader><Space> :<C-u>RunRspec<CR>
 nnoremap <Leader><C-Space> :<C-u>RunRspecL<CR>
 
+" }}}
+
+" ステータスライン {{{
+
+" from http://d.hatena.ne.jp/ruedap/20110712/vim_statusline_git_branch_name
+" ステータスラインの表示
+  set statusline=%<     " 行が長すぎるときに切り詰める位置
+  set statusline+=[%n]  " バッファ番号
+  set statusline+=%m    " %m 修正フラグ
+  set statusline+=%r    " %r 読み込み専用フラグ
+  set statusline+=%h    " %h ヘルプバッファフラグ
+  set statusline+=%w    " %w プレビューウィンドウフラグ
+  set statusline+=%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}  " fencとffを表示
+  set statusline+=%y    " バッファ内のファイルのタイプ
+  set statusline+=\     " 空白スペース
+if winwidth(0) >= 130
+  set statusline+=%F    " バッファ内のファイルのフルパス
+else
+  set statusline+=%t    " ファイル名のみ
+endif
+  set statusline+=%=    " 左寄せ項目と右寄せ項目の区切り
+  silent! set statusline+=%{fugitive#statusline()}  " Gitのブランチ名を表示
+  set statusline+=\ \   " 空白スペース2個
+  set statusline+=%1l   " 何行目にカーソルがあるか
+  set statusline+=/
+  set statusline+=%L    " バッファ内の総行数
+  set statusline+=,
+  set statusline+=%c    " 何列目にカーソルがあるか
+  set statusline+=%V    " 画面上の何列目にカーソルがあるか
+  set statusline+=\ \   " 空白スペース2個
+  set statusline+=%P    " ファイル内の何％の位置にあるか
 " }}}
