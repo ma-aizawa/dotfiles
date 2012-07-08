@@ -52,5 +52,13 @@ set lines=62
 "現在行に色をつける
 set cursorline
 set cursorcolumn
+
+" from http://d.hatena.ne.jp/kasahi/20070902/1188744907
+highlight WhitespaceEOL ctermbg=red guibg=red
+augroup WhiteSpaceEOL
+  autocmd!
+  autocmd WinEnter * match WhitespaceEOL /\s\+$/
+augroup END
+
 "gui settings }}}
 
