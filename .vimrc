@@ -102,6 +102,8 @@ set formatoptions-=r
 set splitbelow
 set splitright
 
+"******** set tags は絶対パスで指定すること ************
+
 "基本的な設定 }}}
 
 "日本語入力 {{{
@@ -348,6 +350,11 @@ HelpDocLoad('~/.vim/bundle')
 " 色々な設定 {{{
 nnoremap <Leader>cs :<C-u>VimShell<CR>
 nnoremap <Leader>cf :<C-u>VimFiler<CR>
+
+augroup CD
+  autocmd!
+  autocmd BufAdd * execute ":lcd " . expand('%:p:h')
+augroup END
 " }}}
 
 " for Ruby {{{
