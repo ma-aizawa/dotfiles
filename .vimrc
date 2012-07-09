@@ -14,8 +14,6 @@ exec 'set runtimepath='.g:default_runtimepath
 set runtimepath& runtimepath+=~/.vim/bundle/neobundle.vim/
 call neobundle#rc(expand('~/.vim/bundle/'))
 
-call HelpDocLoad('~/.vim/bundle')
-
 "colorscheme
 NeoBundle 'Solarized'
 
@@ -42,6 +40,8 @@ NeoBundle 'tpope/vim-rails'
 NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'endwise.vim'
 NeoBundle 'thinca/vim-ref'
+"CoffeeScript
+NeoBundle 'https://github.com/kchmck/vim-coffee-script.git'
 "zencoding-vim
 NeoBundle 'mattn/zencoding-vim'
 NeoBundle 'mattn/webapi-vim'
@@ -344,16 +344,17 @@ au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
 HelpDocLoad('~/.vim/bundle')
 " }}}
 
+" quickrun {{{
+let g:quickrun_config = {}
+let g:quickrun_config['coffee'] = {'command':'coffee', 'exec':['%c -cbp %s; %c %s']}
+"}}}
+
+
 "plugin }}}
 
 " 色々な設定 {{{
 nnoremap <Leader>cs :<C-u>VimShell<CR>
 nnoremap <Leader>cf :<C-u>VimFiler<CR>
-
-augroup CD
-  autocmd!
-  autocmd BufAdd * execute ":lcd " . expand('%:p:h')
-augroup END
 
 "末尾のスペースを削除
 function! RemoveTailWhiteSpaces()
@@ -365,6 +366,11 @@ endfunction
 augroup RemoveTailWhiteSpacesGroup
   autocmd!
   autocmd BufWritePre * :call RemoveTailWhiteSpaces()
+augroup END
+
+augroup CD
+  autocmd!
+  autocmd BufReadPost * execute ":lcd " . expand('%:p:h')
 augroup END
 
 " }}}
