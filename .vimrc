@@ -358,8 +358,9 @@ augroup END
 "末尾のスペースを削除
 function! RemoveTailWhiteSpaces()
   let s:before_line = line('.')
+  let s:before_column = col('.')
   silent! %s/\s\+$//g
-  execute s:before_line
+  execute "call cursor(" . s:before_line . "," . s:before_column . ")"
 endfunction
 
 augroup RemoveTailWhiteSpacesGroup
