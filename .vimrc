@@ -170,13 +170,6 @@ set helplang=en,ja
 
 "編集用 {{{
 
-"色をつける
-augroup InsertHook
-	autocmd!
-  autocmd InsertEnter * highlight StatusLine guifg=#ddcc45 guibg=#2E4340
-	autocmd InsertLeave * highlight StatusLine guifg=#2E4340 guibg=#ddcc45
-augroup END
-
 "改行
 nnoremap <Leader><Enter> o<ESC>
 
@@ -310,6 +303,7 @@ let g:rubycomplete_classes_in_global = 1
 
 "VimShell {{{
 nnoremap <Leader>xs :<C-u>10new<CR>:<C-u>VimShell<CR>
+let g:vimshell_editor_command="/usr/bin/vim"
 "VimShell }}}
 
 " unite.vim {{{
@@ -340,10 +334,6 @@ au FileType unite nnoremap <silent> <buffer> <ESC><ESC> q
 au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
 " unit.vim }}}
 
-" helptag {{{
-HelpDocLoad('~/.vim/bundle')
-" }}}
-
 " quickrun {{{
 let g:quickrun_config = {}
 let g:quickrun_config['coffee'] = {'command':'coffee', 'exec':['%c -cbp %s; %c %s']}
@@ -356,18 +346,28 @@ let g:quickrun_config['coffee'] = {'command':'coffee', 'exec':['%c -cbp %s; %c %
 nnoremap <Leader>cs :<C-u>VimShell<CR>
 nnoremap <Leader>cf :<C-u>VimFiler<CR>
 
+function! SaveCursor()
+  let g:before_line = line('.')
+  let g:before_column = col('.')
+endfunction
 "末尾のスペースを削除
 function! RemoveTailWhiteSpaces()
-  let s:before_line = line('.')
-  let s:before_column = col('.')
   silent! %s/\s\+$//g
-  execute "call cursor(" . s:before_line . "," . s:before_column . ")"
+endfunction
+function! RestoreCursor()
+  execute "call cursor(" . g:before_line . "," . g:before_column . ")"
 endfunction
 
-augroup RemoveTailWhiteSpacesGroup
+" for program {{{
+augroup RubyCompile
   autocmd!
+  autocmd BufWritePre * :call SaveCursor()
   autocmd BufWritePre * :call RemoveTailWhiteSpaces()
+  autocmd BufWritePost *.rb :make -c %
+  autocmd BufWritePost redraw
+  autocmd BufWritePost * :call RestoreCursor()
 augroup END
+" }}}
 
 augroup CD
   autocmd!
