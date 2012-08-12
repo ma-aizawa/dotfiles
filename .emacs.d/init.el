@@ -6,10 +6,11 @@
   (let (path)
     (dolist (path paths paths)
       (let ((default-directory
-	      (expand-file-name (concat user-emacs-directory path))))
-	(add-to-list 'load-path default-directory)
-	(if (fboundp 'normal-top-level-add-subdirs-to-load-path)
-	    (normal-top-level-add-subdirs-to-load-path))))))
+              (expand-file-name (concat user-emacs-directory path))))
+        (add-to-list 'load-path default-directory)
+        (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
+            (normal-top-level-add-subdirs-to-load-path))))))
+
 ;; 引数のディレクトリとそのサブディレクトリをload-pathに追加
 (add-to-load-path "elisp" "conf" "public_repos")
 
@@ -43,22 +44,18 @@
 (setq linum-format "%4d")
 
 ;; TABの表示幅。初期値は8
-(setq-default tab-width 4)
+(setq-default tab-width 2)
 
 ;; インデントにタブ文字を使わない
 (setq-default indent-tabs-mode nil)
 
+;; C-hでbackspace
+(global-set-key "\C-h" 'delete-backward-char)
+
 (when (require 'color-theme nil t)
   ;; テーマを読み込むための設定
-  (color-theme-initialize)
-  ;; テーマをrobin-hoodとりあえず。
-  (color-theme-robin-hood))
+  (color-theme-initialize))
 
-  ;; solarizedの読み込み
-;;  (when (require 'color-theme-solarized)
-  ;; solarizedは漢字をちゃんと読める設定に出来たら
-;;    (color-theme-solarized-dark))
-  
 ;; asciiフォントをRictyに
 (set-face-attribute 'default nil
                     :family "Ricty"
@@ -75,7 +72,7 @@
         (list
           '(width   . 80)
           '(height  . 51)
-          '(alpha   . 80)
+          '(alpha   . 90)
           default-frame-alist)))
 
 (defface my-hl-line-face
@@ -97,7 +94,7 @@
 (setq show-paren-style 'expression)
 ;; フェイスを変更する
 (set-face-background 'show-paren-match-face nil)
-(set-face-underline-p 'show-paren-match-face "yellow")
+(set-face-underline-p 'show-paren-match-face "green")
 
 ;; バックアップファイルの作成場所をまとめる
 (add-to-list 'backup-directory-alist
@@ -244,29 +241,30 @@
       (define-key elscreen-map (kbd "C-z") 'iconify-or-deiconify-frame)
     (define-key elscreen-map (kbd "C-z") 'suspend-emacs)))
 
-;; howmメモ保存の場所
-(setq howm-directory (concat user-emacs-directory "howm"))
-;; howm-menuの言語を日本語に
-(setq howm-menu-lang 'ja)
-;; howmメモを1日1ファイルにする場合
-;; (setq howm-file-name-format "%Y/%m/%Y-%m-%d.howm")
-;; howm-modeを読み込む
-(when (require 'howm-mode nil t)
-  ;; C-c,,でhowm-menuを起動
-  (define-key global-map (kbd "C-c ,,") 'howm-menu))
-;; howmメモを保存と同時に閉じる
-(defun howm-save-buffer-and-kill()
-      "howmメモを保存と同時に閉じます。"
-      (interactive)
-      (when (and (buffer-file-name)
-                 (string-match "\\.howm" (buffer-file-name)))
-        (save-buffer)
-        (kill-buffer nil)))
+(when (require 'howm nil t)
+  ;; howmメモ保存の場所
+  (setq howm-directory (concat user-emacs-directory "howm"))
+  ;; howm-menuの言語を日本語に
+  (setq howm-menu-lang 'ja)
+  ;; howmメモを1日1ファイルにする場合
+  ;; (setq howm-file-name-format "%Y/%m/%Y-%m-%d.howm")
+  ;; howm-modeを読み込む
+  (when (require 'howm-mode nil t)
+    ;; C-c,,でhowm-menuを起動
+    (define-key global-map (kbd "C-c ,,") 'howm-menu))
+  ;; howmメモを保存と同時に閉じる
+  (defun howm-save-buffer-and-kill()
+    "howmメモを保存と同時に閉じます。"
+    (interactive)
+    (when (and (buffer-file-name)
+               (string-match "\\.howm" (buffer-file-name)))
+      (save-buffer)
+      (kill-buffer nil)))
 
-;; C-c C-cでメモの保存と同時にバッファを閉じる
-(define-key howm-mode-map (kbd "C-c C-c") 'howm-save-buffer-and-kill)
+  ;; C-c C-cでメモの保存と同時にバッファを閉じる
+  (define-key howm-mode-map (kbd "C-c C-c") 'howm-save-buffer-and-kill))
 
-;; cua-modeの設定
+;; Cua-modeの設定
 (cua-mode t) ; cua-modeをオン
 (setq cua-enable-cua-keys nil) ; CUAキーバインドを無効にする
 
@@ -281,3 +279,4 @@
 (add-to-list 'auto-mode-alist '("\\.cabal\\'" . haskell-cabal-mode))
 (add-hook 'haskell-mode-hook 'turn-on-haskell-docmode)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+

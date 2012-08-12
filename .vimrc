@@ -48,13 +48,25 @@ NeoBundle 'mattn/webapi-vim'
 NeoBundle 'mattn/gist-vim'
 "memo
 NeoBundle 'migrs/qfixhowm'
+"YankRing
+NeoBundle 'vim-scripts/YankRing.vim'
 
 "File Explorer
 NeoBundle 'vim-scripts/opsplorer'
 NeoBundle 'scrooloose/nerdtree'
 
+"Rsense for ruby. dummy
+NeoBundle 'rsense'
+source ~/.vim/bundle/rsense/rsense.vim
+
 "My plugin
 NeoBundle 'MasahiroAizawa/helptags-vim'
+
+"JavaScript
+NeoBundle 'scrooloose/syntastic'
+"HTML5 syntax
+NeoBundle 'othree/html5.vim'
+NeoBundle 'pauloalem/matchit'
 
 "neobundle }}}
 
@@ -84,6 +96,7 @@ set nosmarttab
 set nojoinspaces
 set noincsearch
 set ruler
+set showcmd
 
 set expandtab
 set autoindent
@@ -339,6 +352,19 @@ let g:quickrun_config = {}
 let g:quickrun_config['coffee'] = {'command':'coffee', 'exec':['%c -cbp %s; %c %s']}
 "}}}
 
+"RSense {{{
+
+let g:rsenseHome = "/Users/masahiro/program/lib/rsense"
+let g:rsenseUseOmniFunc = 1
+
+"}}}
+
+" syntastic {{{
+let g:syntastic_mode_map = { 'mode': 'passive',
+                           \ 'active_filetypes':['ruby', 'javascript'],
+                           \ 'passive_filetypes':[]}
+let g:syntastic_javascript_jslint_conf = "--white --undef --nomen --regexp --plusplus --bitwise --newcap --sloppy --vars"
+"}}}
 
 "plugin }}}
 
@@ -373,6 +399,8 @@ augroup CD
   autocmd!
   autocmd BufReadPost * execute ":lcd " . expand('%:p:h')
 augroup END
+
+nnoremap <ESC><ESC> :<C-u>noh<CR>
 
 " }}}
 

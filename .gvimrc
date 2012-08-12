@@ -63,5 +63,12 @@ augroup END
 "折り返しオフ
 set textwidth=0
 
+"InsertModeに入ったときにステータスバーの色を変える
+augroup InsertColorChange
+  autocmd!
+  autocmd InsertEnter * hi StatusLine guibg=#ffff66 guifg=#ff6633
+  autocmd InsertLeave * hi StatusLine guibg=#073642 guifg=#839496
+augroup END
+
 "gui settings }}}
 
