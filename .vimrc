@@ -52,7 +52,6 @@ NeoBundle 'migrs/qfixhowm'
 NeoBundle 'vim-scripts/YankRing.vim'
 
 "File Explorer
-NeoBundle 'vim-scripts/opsplorer'
 NeoBundle 'scrooloose/nerdtree'
 
 "Rsense for ruby. dummy
@@ -395,11 +394,6 @@ augroup RubyCompile
 augroup END
 " }}}
 
-augroup CD
-  autocmd!
-  autocmd BufReadPost * execute ":lcd " . expand('%:p:h')
-augroup END
-
 nnoremap <ESC><ESC> :<C-u>noh<CR>
 
 " }}}
@@ -465,3 +459,9 @@ endif
   set statusline+=\ \   " 空白スペース2個
   set statusline+=%P    " ファイル内の何％の位置にあるか
 " }}}
+
+"ローカル用の拡張設定 {{{
+if exists('~/.vim/ext_vimrc.vim')
+  source ~/.vim/ext_vimrc.vim
+endif
+"}}}

@@ -72,3 +72,10 @@ augroup END
 
 "gui settings }}}
 
+" when open vim, default nerdtree open.
+let NEADTreeShowHidden = 1
+let file_name = expand("%:p")
+if has('vim_starting') && file_name == ""
+  autocmd VimEnter * execute 'NERDTree ./'
+endif
+

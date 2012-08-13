@@ -26,6 +26,8 @@
   (set-file-name-coding-system 'utf-8-hfs)
   (setq locale-coding-system 'utf-8-hfs))
 
+;; ツールバーを隠す
+(tool-bar-mode 0)
 ;; カラム番号も表示
 (column-number-mode t)
 ;; ファイルサイズを表示
@@ -71,7 +73,7 @@
       (append
         (list
           '(width   . 80)
-          '(height  . 51)
+          '(height  . 50)
           '(alpha   . 90)
           default-frame-alist)))
 
