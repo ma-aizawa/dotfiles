@@ -29,7 +29,7 @@ NeoBundle 'vim-scripts/taglist.vim'
 
 "programming
 NeoBundle 'motemen/git-vim'
-NeoBundle 'quickrun'
+NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'gregsexton/gitv'
 NeoBundle 'https://github.com/tpope/vim-fugitive.git'
 "Scala
@@ -66,6 +66,8 @@ NeoBundle 'scrooloose/syntastic'
 "HTML5 syntax
 NeoBundle 'othree/html5.vim'
 NeoBundle 'pauloalem/matchit'
+NeoBundle 'hokaccha/vim-html5validator'
+NeoBundle 'groenewege/vim-less'
 
 "neobundle }}}
 
@@ -252,7 +254,7 @@ let g:neocomplcache_min_syntax_length = 4
 if !exists('g:neocomplcache_omni_patterns')
   let g:neocomplcache_omni_patterns = {}
 endif
-let g:neocomplcache_omni_patterns.ruby = '[^.*\t]\.\w*\|\h\w*::'
+"let g:neocomplcache_omni_patterns.ruby = '[^.*\t]\.\w*\|\h\w*::'
 autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 
 "補完候補が表示されている場合は確定。そうでない場合は改行
@@ -348,7 +350,8 @@ au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
 
 " quickrun {{{
 let g:quickrun_config = {}
-let g:quickrun_config['coffee'] = {'command':'coffee', 'exec':['%c -cbp %s; %c %s']}
+let g:quickrun_config['coffee'] = {'command':'coffee', 'exec':['%c -cbp %s']}
+let g:quickrun_config['coffee.script'] = {'command':'coffee', 'exec':['%c -cbp %s; %c %s']}
 "}}}
 
 "RSense {{{
@@ -363,6 +366,16 @@ let g:syntastic_mode_map = { 'mode': 'passive',
                            \ 'active_filetypes':['ruby', 'javascript'],
                            \ 'passive_filetypes':[]}
 let g:syntastic_javascript_jslint_conf = "--white --undef --nomen --regexp --plusplus --bitwise --newcap --sloppy --vars"
+"}}}
+
+" YankRing {{{
+nnoremap <silent> <F11> :<C-u>YRShow<CR>
+let g:yankring_history_dir = "~/.vim/"
+let g:yankring_history_file = ".yankring_history"
+"}}}
+
+"Zencoding {{{
+let g:user_zen_leader_key = '<C-n>'
 "}}}
 
 "plugin }}}
@@ -388,7 +401,7 @@ augroup RubyCompile
   autocmd!
   autocmd BufWritePre * :call SaveCursor()
   autocmd BufWritePre * :call RemoveTailWhiteSpaces()
-  autocmd BufWritePost *.rb :make -c %
+  autocmd BufWritePost *.rb silent! :make -c %
   autocmd BufWritePost redraw
   autocmd BufWritePost * :call RestoreCursor()
 augroup END
@@ -426,6 +439,12 @@ command! RunRspecL :call RunRspec(1)
 
 nnoremap <Leader><Space> :<C-u>RunRspec<CR>
 nnoremap <Leader><C-Space> :<C-u>RunRspecL<CR>
+
+augroup FileTypeSupport
+  autocmd!
+  autocmd BufReadPost *.rb,*.coffee setlocal formatoptions-=r
+  autocmd BufReadPost *.rb,*.coffee setlocal formatoptions-=o
+augroup END
 
 " }}}
 

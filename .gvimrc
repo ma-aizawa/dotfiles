@@ -9,6 +9,7 @@ if has('gui_macvim')
   set transparency=4
   "フォント
   set guifont=Ricty\ Regular:h13
+  set guioptions-=T
 "Windows
 elseif has('win64')
   set guioptions=acefirR
@@ -79,3 +80,4 @@ if has('vim_starting') && file_name == ""
   autocmd VimEnter * execute 'NERDTree ./'
 endif
 
+set showcmd
