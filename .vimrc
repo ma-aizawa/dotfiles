@@ -401,11 +401,21 @@ augroup RubyCompile
   autocmd!
   autocmd BufWritePre * :call SaveCursor()
   autocmd BufWritePre * :call RemoveTailWhiteSpaces()
-  autocmd BufWritePost *.rb silent! :make -c %
+  autocmd BufWritePost *.rb silent! :make -c % >/dev/null
+  autocmd BufWritePost *.coffe silent! :make -c % >/dev/null
   autocmd BufWritePost redraw
   autocmd BufWritePost * :call RestoreCursor()
+  autocmd BufWritePost * :cw
 augroup END
 " }}}
+
+"ファイル名をコピー {{{
+function! CopyPath()
+  let @*=expand('%:p')
+  let @"=expand('%:p')
+endfunction
+command! CP :call CopyPath()
+"}}}
 
 nnoremap <ESC><ESC> :<C-u>noh<CR>
 
