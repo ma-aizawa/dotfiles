@@ -56,7 +56,9 @@ NeoBundle 'scrooloose/nerdtree'
 
 "Rsense for ruby. dummy
 NeoBundle 'rsense'
-source ~/.vim/bundle/rsense/rsense.vim
+if filereadable(expand('~/.vim/bundle/rsense/rsense.vim'))
+  source ~/.vim/bundle/rsense/rsense.vim
+endif
 
 "My plugin
 NeoBundle 'MasahiroAizawa/helptags-vim'
@@ -408,6 +410,10 @@ augroup END
 " }}}
 
 nnoremap <ESC><ESC> :<C-u>noh<CR>
+
+"HTML用 non-break space {{{
+inoremap <C-space> &nbsp;
+"}}}
 
 " }}}
 
