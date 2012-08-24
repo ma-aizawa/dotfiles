@@ -386,17 +386,18 @@ let g:user_zen_leader_key = '<C-n>'
 nnoremap <Leader>cs :<C-u>VimShell<CR>
 nnoremap <Leader>cf :<C-u>VimFiler<CR>
 
+"末尾のスペースを削除 {{{
 function! SaveCursor()
   let g:before_line = line('.')
   let g:before_column = col('.')
 endfunction
-"末尾のスペースを削除
 function! RemoveTailWhiteSpaces()
   silent! %s/\s\+$//g
 endfunction
 function! RestoreCursor()
   execute "call cursor(" . g:before_line . "," . g:before_column . ")"
 endfunction
+"}}}
 
 " for program {{{
 augroup RubyCompile
@@ -413,6 +414,14 @@ nnoremap <ESC><ESC> :<C-u>noh<CR>
 
 "HTML用 non-break space {{{
 inoremap <C-space> &nbsp;
+"}}}
+
+" コメント用 {{{
+augroup AddSyntax
+  autocmd!
+  autocmd BufReadPost *.rb syn keyword rubyTodo MEMO NOTE contained
+  autocmd BufReadPost *.coffee syn keyword coffeeTodo MEMO NOTE contained
+augroup END
 "}}}
 
 " }}}
