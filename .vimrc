@@ -192,11 +192,8 @@ nnoremap <Leader><Enter> o<ESC>
 "検索時に/を入力
 cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
 
-":helpのショートカット
-nnoremap <C-h> :<C-u>help<Space>
-
 "tabnew
-nnoremap <Leader>xt :<C-u>:tabnew<CR>
+nnoremap <Leader>t :<C-u>:tabnew<CR>
 
 "diff
 nnoremap <Leader>dt :<C-u>diffthis<CR>
@@ -318,7 +315,7 @@ let g:rubycomplete_classes_in_global = 1
 "rubycomplete }}}
 
 "VimShell {{{
-nnoremap <Leader>xs :<C-u>10new<CR>:<C-u>VimShell<CR>
+nnoremap <Leader>s :<C-u>10new<CR>:<C-u>VimShell<CR>
 let g:vimshell_editor_command="/usr/bin/vim"
 "VimShell }}}
 
@@ -380,6 +377,10 @@ let g:yankring_history_file = ".yankring_history"
 let g:user_zen_leader_key = '<C-n>'
 "}}}
 
+" NERDTree {{{
+nnoremap <C-h> :<C-u>NERDTreeToggle<CR>
+"}}}
+
 "plugin }}}
 
 " 色々な設定 {{{
@@ -434,7 +435,10 @@ augroup AddSyntax
 augroup END
 "}}}
 
-" }}}
+" Visual Modeでの検索 {{{
+" from http://vim-users.jp/2009/11/hack104/
+vnoremap <silent> * "vy/\V<C-r>=substitute(escape(@v,'\/'),"\n",'\\n','g')<CR><CR>
+"}}}
 
 " for Ruby {{{
 set tags+=~/program/ruby/.lib_tags
@@ -509,3 +513,4 @@ if exists('~/.vim/ext_vimrc.vim')
   source ~/.vim/ext_vimrc.vim
 endif
 "}}}
+
