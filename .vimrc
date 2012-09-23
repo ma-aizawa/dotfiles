@@ -60,11 +60,15 @@ if filereadable(expand('~/.vim/bundle/rsense/rsense.vim'))
   source ~/.vim/bundle/rsense/rsense.vim
 endif
 
+"For groovy
+NeoBundle 'https://github.com/Reder/groovy.vim'
+
 "My plugin
 NeoBundle 'MasahiroAizawa/helptags-vim'
 
 "JavaScript
 NeoBundle 'scrooloose/syntastic'
+NeoBundle 'jsx/jsx.vim'
 "HTML5 syntax
 NeoBundle 'othree/html5.vim'
 NeoBundle 'pauloalem/matchit'
@@ -281,6 +285,7 @@ let g:vimfiler_safe_mode_by_default=0
 
 "Gist-Vim {{{
 let g:gist_open_browser_after_post = 1
+let g:gist_use_password_in_gitconfig = 0
 "Gist-Vim }}}
 
 "QFixHowm {{{
@@ -317,6 +322,7 @@ let g:rubycomplete_classes_in_global = 1
 "VimShell {{{
 nnoremap <Leader>s :<C-u>10new<CR>:<C-u>VimShell<CR>
 let g:vimshell_editor_command="/usr/bin/vim"
+let g:vimshell_user_prompt='getcwd()'
 "VimShell }}}
 
 " unite.vim {{{
@@ -351,6 +357,7 @@ au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
 let g:quickrun_config = {}
 let g:quickrun_config['coffee'] = {'command':'coffee', 'exec':['%c -cbp %s']}
 let g:quickrun_config['coffee.script'] = {'command':'coffee', 'exec':['%c -cbp %s; %c %s']}
+let g:quickrun_config['jsx'] = {'command':'jsx', 'exec':['%c --run %s']}
 "}}}
 
 "RSense {{{

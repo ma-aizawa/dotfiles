@@ -45,6 +45,9 @@
 (global-linum-mode t)
 (setq linum-format "%4d")
 
+;; 行ジャンプ
+(global-set-key "\C-x\C-g" 'goto-line)
+
 ;; TABの表示幅。初期値は8
 (setq-default tab-width 2)
 
@@ -53,6 +56,11 @@
 
 ;; C-hでbackspace
 (global-set-key "\C-h" 'delete-backward-char)
+
+;; undo
+(global-set-key "\C-z" 'undo)
+;; 行の先頭でC-k一回で行を消す
+(setq kill-whole-line t)
 
 (when (require 'color-theme nil t)
   ;; テーマを読み込むための設定
@@ -85,7 +93,7 @@
     (((class color) (background light))
      (:background "LightGoldenrodYellow" t))
     (t (:bold t)))
-  "hl-line's my face")
+  "Hl-line's my face")
 (setq hl-line-face 'my-hl-line-face)
 (global-hl-line-mode 0)
 
@@ -281,4 +289,9 @@
 (add-to-list 'auto-mode-alist '("\\.cabal\\'" . haskell-cabal-mode))
 (add-hook 'haskell-mode-hook 'turn-on-haskell-docmode)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+
+;; arduino-mode
+(setq auto-mode-alist (cons '("\\.\\(pde\\ino\\)$" . arduino-mode) auto-mode-alist))
+(autoload 'arduino-mode "arduino-mode" "Arduino editing mode." t)
+
 
