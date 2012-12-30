@@ -18,11 +18,16 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 NeoBundle 'Solarized'
 
 "vim-script by Shougo
-NeoBundle 'Shougo/vimproc'
+NeoBundle 'Shougo/vimproc', {
+      \ 'build' : {
+      \     'mac' : 'make -f make_mac.mak',
+      \    },
+      \ }
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/vimfiler'
+NeoBundle 'Shougo/neocomplcache-snippets-complete'
 
 "vim-scritps repo
 NeoBundle 'vim-scripts/taglist.vim'
@@ -32,6 +37,7 @@ NeoBundle 'motemen/git-vim'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'gregsexton/gitv'
 NeoBundle 'https://github.com/tpope/vim-fugitive.git'
+NeoBundle 'tpope/vim-endwise.git'
 "Scala
 NeoBundle 'vim-scala'
 NeoBundle 'scala.vim'
@@ -50,6 +56,7 @@ NeoBundle 'mattn/gist-vim'
 NeoBundle 'migrs/qfixhowm'
 "YankRing
 NeoBundle 'vim-scripts/YankRing.vim'
+NeoBundle 'https://github.com/tomtom/tcomment_vim.git'
 
 "File Explorer
 NeoBundle 'scrooloose/nerdtree'
@@ -71,7 +78,7 @@ NeoBundle 'scrooloose/syntastic'
 NeoBundle 'jsx/jsx.vim'
 "HTML5 syntax
 NeoBundle 'othree/html5.vim'
-NeoBundle 'pauloalem/matchit'
+NeoBundle 'https://github.com/tmhadberg/matchit'
 NeoBundle 'hokaccha/vim-html5validator'
 NeoBundle 'groenewege/vim-less'
 
@@ -258,7 +265,7 @@ if !exists('g:neocomplcache_omni_patterns')
   let g:neocomplcache_omni_patterns = {}
 endif
 "let g:neocomplcache_omni_patterns.ruby = '[^.*\t]\.\w*\|\h\w*::'
-autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+"autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 
 "補完候補が表示されている場合は確定。そうでない場合は改行
 "inoremap pumvisible() ? neocomplcache#close_popup() : "\"
@@ -319,6 +326,17 @@ let g:rubycomplete_rails = 0
 let g:rubycomplete_classes_in_global = 1
 "rubycomplete }}}
 
+" neocompl-snippets-camplete {{{
+imap <C-k> <Plug>(neocomplcache_snippets_expand)
+nmap <Space>e :<C-u>NeoComplCacheEditSnippets<CR>
+augroup Snippets
+  autocmd!
+  autocmd BufRead,BufNewFile *.snip setlocal filetype=snippet
+  autocmd FileType snippet nmap <buffer><Space>e :e #<CR>
+augroup END
+
+"}}}
+
 "VimShell {{{
 nnoremap <Leader>s :<C-u>10new<CR>:<C-u>VimShell<CR>
 let g:vimshell_editor_command="/usr/bin/vim"
@@ -358,6 +376,7 @@ let g:quickrun_config = {}
 let g:quickrun_config['coffee'] = {'command':'coffee', 'exec':['%c -cbp %s']}
 let g:quickrun_config['coffee.script'] = {'command':'coffee', 'exec':['%c -cbp %s; %c %s']}
 let g:quickrun_config['jsx'] = {'command':'jsx', 'exec':['%c --run %s']}
+let g:quickrun_config['javascript'] = {'command':'node', 'exec':['%c %s']}
 "}}}
 
 "RSense {{{
@@ -385,7 +404,11 @@ let g:user_zen_leader_key = '<C-n>'
 "}}}
 
 " NERDTree {{{
-nnoremap <C-h> :<C-u>NERDTreeToggle<CR>
+nnoremap <C-h><C-h> :<C-u>NERDTreeToggle<CR>
+"}}}
+
+" Tlist {{{
+nnoremap <C-h><C-t> :<C-u>TlistToggle<CR>
 "}}}
 
 "plugin }}}
