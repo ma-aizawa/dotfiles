@@ -1,6 +1,15 @@
 ;; おまじない？
 (require 'cl nil t)
 
+;; PATHの追加
+(dolist (dir (list
+              "/usr/local/bin"
+              (expand-file-name "~/bin")
+              ))
+  (when (and (file-exists-p dir) (not (member dir exec-path)))
+    (setenv "PATH" (concat dir ":" (getenv "PATH")))
+    (setq exec-path (append (list dir) exec-path))))
+
 ;; load-path を追加する関数を定義
 (defun add-to-load-path (&rest paths)
   (let (path)
@@ -294,4 +303,19 @@
 (setq auto-mode-alist (cons '("\\.\\(pde\\ino\\)$" . arduino-mode) auto-mode-alist))
 (autoload 'arduino-mode "arduino-mode" "Arduino editing mode." t)
 
+;; For scheme-mode
+(setq scheme-program-name "gosh -i")
+
+;(require 'cmuscheme)
+;(defun scheme-other-window ()
+;  "Run scheme on other window"
+;  (interactive)
+;  (switch-to-buffer-other-window
+;   (get-buffer-create "*scheme*"))
+;  (run-scheme scheme-program-name))
+;(define-key global-map
+;  "\C-cS" 'scheme-other-window)
+
+(autoload 'scheme-mode "cmuscheme" "Major mode for Scheme." t)
+(autoload 'run-scheme "cmuscheme" "run an inferior Scheme process." t)
 
