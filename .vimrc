@@ -538,6 +538,11 @@ endif
   set statusline+=%P    " ファイル内の何％の位置にあるか
 " }}}
 
+" 変わり目の設定 {{{
+nnoremap Q :<C-u>q<CR>
+nnoremap <Enter> :<C-u>w<CR>
+" }}}
+
 "ローカル用の拡張設定 {{{
 if exists('~/.vim/ext_vimrc.vim')
   source ~/.vim/ext_vimrc.vim
