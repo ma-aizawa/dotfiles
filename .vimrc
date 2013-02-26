@@ -539,7 +539,8 @@ endif
 " }}}
 
 " 変わり目の設定 {{{
-nnoremap Q :<C-u>q<CR>
+nnoremap q :<C-u>q<CR>
+nnoremap Q q
 nnoremap <Enter> :<C-u>w<CR>
 " }}}
 
