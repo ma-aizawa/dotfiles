@@ -1,0 +1,9 @@
+#! /usr/bin/env bash
+
+# define aliases for git
+if type git >/dev/null 2>&1; then
+  alias gs='git status -b'
+  alias ga='git add'
+  alias gl='git log --decorate'
+fi
+
