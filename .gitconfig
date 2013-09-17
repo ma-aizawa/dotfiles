@@ -1,16 +1,16 @@
 
 [user]
-	name = masahiro aizawa
-	email = kingyodojo@gmail.com
+  name = masahiro aizawa
+  email = kingyodojo@gmail.com
 [core]
   editor = vim
-	excludesfile = /Users/masahiro/.gitignore
+  excludesfile = /Users/masahiro/.gitignore
   autocrlf = false
-	filemode = true
+  filemode = true
 [color]
-	ui = auto
+  ui = auto
 [github]
-	user = MasahiroAizawa
+  user = MasahiroAizawa
 [alias]
   co = checkout
   st = status -s -b
@@ -18,3 +18,4 @@
   br = branch
   logg = log --graph --decorate --pretty=format:\"%ad [%cn] %h> %n %Cgreen%d%Creset %s %n\" --name-status
   logs = log --graph --decorate --pretty=format:\"%ad [%cn] %h> %n %Cgreen%d%Creset %s %n\" --stat
+
