@@ -82,6 +82,9 @@ NeoBundle 'https://github.com/tmhadberg/matchit'
 NeoBundle 'hokaccha/vim-html5validator'
 NeoBundle 'groenewege/vim-less'
 
+" For Arduino
+NeoBundle 'https://github.com/kingbin/vim-arduino.git'
+
 "neobundle }}}
 
 "基本的な設定 {{{
@@ -131,6 +134,13 @@ set splitright
 "******** set tags は絶対パスで指定すること ************
 
 "基本的な設定 }}}
+
+" {{{ add syntax color
+augroup ScalaColor
+	autocmd!
+  autocmd BufNewFile,BufRead *.scala set ft=scala
+augroup END
+" add syntax color }}}
 
 "日本語入力 {{{
 "日本語入力をリセット
@@ -414,8 +424,11 @@ nnoremap <C-h><C-t> :<C-u>TlistToggle<CR>
 "plugin }}}
 
 " 色々な設定 {{{
+
+" コマンド呼び出し{{{
 nnoremap <Leader>cs :<C-u>VimShell<CR>
 nnoremap <Leader>cf :<C-u>VimFiler<CR>
+" }}}
 
 "末尾のスペースを削除 {{{
 function! SaveCursor()
@@ -451,8 +464,6 @@ endfunction
 command! CP :call CopyPath()
 "}}}
 
-nnoremap <ESC><ESC> :<C-u>noh<CR>
-
 "HTML用 non-break space {{{
 inoremap <C-space> &nbsp;
 "}}}
@@ -465,9 +476,13 @@ augroup AddSyntax
 augroup END
 "}}}
 
-" Visual Modeでの検索 {{{
+" 検索 {{{
+" for visual mode
 " from http://vim-users.jp/2009/11/hack104/
 vnoremap <silent> * "vy/\V<C-r>=substitute(escape(@v,'\/'),"\n",'\\n','g')<CR><CR>
+
+" ハイライトを消す
+nnoremap <ESC><ESC> :<C-u>noh<CR>
 "}}}
 
 " for Ruby {{{

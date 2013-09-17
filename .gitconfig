@@ -6,13 +6,14 @@
   editor = vim
 	excludesfile = /Users/masahiro/.gitignore
   autocrlf = false
+	filemode = true
 [color]
 	ui = auto
 [github]
 	user = MasahiroAizawa
 [alias]
   co = checkout
-  st = status -s
+  st = status -s -b
   df = diff --word-diff
   br = branch
   logg = log --graph --decorate --pretty=format:\"%ad [%cn] %h> %n %Cgreen%d%Creset %s %n\" --name-status
