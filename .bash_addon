@@ -7,3 +7,7 @@ if type git >/dev/null 2>&1; then
   alias gl='git log --decorate'
 fi
 
+# define aliases for ls
+alias la='ls -a'
+alias ll='ls -l'
+
