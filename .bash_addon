@@ -2,7 +2,7 @@
 
 # define aliases for git
 if type git >/dev/null 2>&1; then
-  alias gs='git status -b'
+  alias gs='git status -bs'
   alias ga='git add'
   alias gl='git log --decorate'
   alias gd='git diff'
