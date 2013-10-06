@@ -431,6 +431,7 @@ nnoremap <Leader>cf :<C-u>VimFiler<CR>
 " }}}
 
 "末尾のスペースを削除 {{{
+" この関数はSwitchRspec関数でも呼び出す
 function! SaveCursor()
   let g:before_line = line('.')
   let g:before_column = col('.')
@@ -507,18 +508,52 @@ function! RunRspec(line_run)
   silent! file `=s:bufname`
   nnoremap <silent><buffer> q bw
 endfunction
-
 command! RunRspec :call RunRspec(0)
 command! RunRspecL :call RunRspec(1)
 
-nnoremap <Leader><Space> :<C-u>RunRspec<CR>
-nnoremap <Leader><C-Space> :<C-u>RunRspecL<CR>
 
 augroup FileTypeSupport
   autocmd!
   autocmd BufReadPost *.rb,*.coffee setlocal formatoptions-=r
   autocmd BufReadPost *.rb,*.coffee setlocal formatoptions-=o
 augroup END
+
+function! SwitchRspec()
+  let s:filename = expand('%')
+  let s:filetype = &filetype
+
+  if s:filetype == "ruby.rspec"
+    let s:newname = substitute(s:filename, "^spec", "app", "")
+    let s:newname = substitute(s:newname, "_spec.rb", ".rb", "")
+  elseif s:filetype == "ruby"
+    let s:newname = substitute(s:filename, "^app", "spec", "")
+    let s:newname = substitute(s:newname, ".rb", "_spec.rb", "")
+  else
+    echo "In this filetype, this keys don't run"
+    return
+  endif
+
+  let s:winnum = bufwinnr(bufnr(s:newname))
+  if  s:winnum == -1
+    execute "vnew " . s:newname
+  else
+    execute s:winnum . "wincmd w"
+  endif
+endfunction
+command! SwitchRspec :call SwitchRspec()
+
+function! SetupRspec()
+  nnoremap <Leader><Space> :<C-u>RunRspec<CR>
+  nnoremap <Leader><C-Space> :<C-u>RunRspecL<CR>
+  nnoremap <C-l><C-r> :<C-u>SwitchRspec<CR>
+endfunction
+
+augroup RspecSetup
+  autocmd!
+  autocmd BufNewFile,BufRead *_spec.rb setlocal ft=ruby.rspec
+  autocmd BufNewFile,BufRead *.rb call SetupRspec()
+augroup END
+
 
 " }}}
 
