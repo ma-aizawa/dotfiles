@@ -13,3 +13,15 @@ fi
 alias la='ls -a'
 alias ll='ls -la'
 
+git_branch() {
+  __git_ps1 '(git:%s)'
+}
+
+# use bash-completion
+if [ -f /opt/local/share/git-core/git-prompt.sh ]; then
+  . /opt/local/share/git-core/git-prompt.sh
+  export PS1="\[\033[01;32m\]\u@\h\[\033[01;33m\] \w$(git_branch) \n\[\033[01;34m\]\$\[\033[00m\] "
+else
+  export PS1="\[\033[01;32m\]\u@\h\[\033[01;33m\] \w \n\[\033[01;34m\]\$\[\033[00m\] "
+fi
+
