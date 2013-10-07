@@ -27,7 +27,7 @@ NeoBundle 'Shougo/vimshell'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/vimfiler'
-NeoBundle 'Shougo/neocomplcache-snippets-complete'
+NeoBundle 'Shougo/neosnippet'
 
 "vim-scritps repo
 NeoBundle 'vim-scripts/taglist.vim'
@@ -131,6 +131,7 @@ set formatoptions-=r
 set splitbelow
 set splitright
 
+
 "******** set tags は絶対パスで指定すること ************
 
 "基本的な設定 }}}
@@ -144,7 +145,10 @@ augroup END
 
 "日本語入力 {{{
 "日本語入力をリセット
-au BufNewFile,BufRead * set iminsert=0
+augroup ImeSetting
+  autocmd!
+  autocmd BufNewFile,BufRead * set iminsert=0
+augroup END
 
 "日本語入力時のカーソル
 if has('multi_byte_ime') || has('xim')
@@ -156,7 +160,7 @@ endif
 "折りたたみ {{{
 set foldmethod=syntax
 
-"rubyの折りたたみ設定をまねしてみる
+"rubyの折りたたみ設定
 set foldlevel=1
 set foldnestmax=2
 
@@ -190,9 +194,9 @@ function! CountVimPower()
   new
   read ~/.vimrc
   read ~/.gvimrc
-  %s/^\s\+//g
-  g/^"/d
-  g/^\n/d
+  silent! %s/^\s\+//g
+  silent! g/^"/d
+  silent! g/^\n/d
   normal G
   let s:linePower = line('.')
   q!
@@ -337,6 +341,7 @@ let g:rubycomplete_classes_in_global = 1
 "rubycomplete }}}
 
 " neocompl-snippets-camplete {{{
+" TODO replace this commands
 imap <C-k> <Plug>(neocomplcache_snippets_expand)
 nmap <Space>e :<C-u>NeoComplCacheEditSnippets<CR>
 augroup Snippets
@@ -370,15 +375,17 @@ nnoremap <silent> ,uu :<C-u>Unite buffer file_mru<CR>
 " 全部乗せ
 nnoremap <silent> ,ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
 
-" ウィンドウを分割して開く
-au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
-au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
-" ウィンドウを縦に分割して開く
-au FileType unite nnoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
-au FileType unite inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
-" ESCキーを2回押すと終了する
-au FileType unite nnoremap <silent> <buffer> <ESC><ESC> q
-au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
+augroup UnitWindowSetting
+  " ウィンドウを分割して開く
+  au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+  au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+  " ウィンドウを縦に分割して開く
+  au FileType unite nnoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
+  au FileType unite inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
+  " ESCキーを2回押すと終了する
+  au FileType unite nnoremap <silent> <buffer> <ESC><ESC> q
+  au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
+augroup END
 " unit.vim }}}
 
 " quickrun {{{
@@ -440,7 +447,7 @@ function! RemoveTailWhiteSpaces()
   silent! %s/\s\+$//g
 endfunction
 function! RestoreCursor()
-  execute "call cursor(" . g:before_line . "," . g:before_column . ")"
+  silent! execute "call cursor(" . g:before_line . "," . g:before_column . ")"
 endfunction
 "}}}
 
@@ -451,7 +458,7 @@ augroup RubyCompile
   autocmd BufWritePre * :call RemoveTailWhiteSpaces()
   autocmd BufWritePost *.rb silent! :make -c % >/dev/null
   autocmd BufWritePost *.coffe silent! :make -c % >/dev/null
-  autocmd BufWritePost redraw
+  autocmd BufWritePost <silent> redraw
   autocmd BufWritePost * :call RestoreCursor()
   autocmd BufWritePost * :cw
 augroup END
@@ -466,7 +473,10 @@ command! CP :call CopyPath()
 "}}}
 
 "HTML用 non-break space {{{
-inoremap <C-space> &nbsp;
+augroup HTMLSpace
+  autocmd!
+  autocmd FileType html inoremap <C-space> &nbsp;
+augroup END
 "}}}
 
 " コメント用 {{{
@@ -561,31 +571,31 @@ augroup END
 
 " from http://d.hatena.ne.jp/ruedap/20110712/vim_statusline_git_branch_name
 " ステータスラインの表示
-  set statusline=%<     " 行が長すぎるときに切り詰める位置
-  set statusline+=[%n]  " バッファ番号
-  set statusline+=%m    " %m 修正フラグ
-  set statusline+=%r    " %r 読み込み専用フラグ
-  set statusline+=%h    " %h ヘルプバッファフラグ
-  set statusline+=%w    " %w プレビューウィンドウフラグ
-  set statusline+=%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}  " fencとffを表示
-  set statusline+=%y    " バッファ内のファイルのタイプ
-  set statusline+=\     " 空白スペース
+set statusline=%<     " 行が長すぎるときに切り詰める位置
+set statusline+=[%n]  " バッファ番号
+set statusline+=%m    " %m 修正フラグ
+set statusline+=%r    " %r 読み込み専用フラグ
+set statusline+=%h    " %h ヘルプバッファフラグ
+set statusline+=%w    " %w プレビューウィンドウフラグ
+set statusline+=%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}  " fencとffを表示
+set statusline+=%y    " バッファ内のファイルのタイプ
+set statusline+=\     " 空白スペース
 if winwidth(0) >= 130
   set statusline+=%F    " バッファ内のファイルのフルパス
 else
   set statusline+=%t    " ファイル名のみ
 endif
-  set statusline+=%=    " 左寄せ項目と右寄せ項目の区切り
-  silent! set statusline+=%{fugitive#statusline()}  " Gitのブランチ名を表示
-  set statusline+=\ \   " 空白スペース2個
-  set statusline+=%1l   " 何行目にカーソルがあるか
-  set statusline+=/
-  set statusline+=%L    " バッファ内の総行数
-  set statusline+=,
-  set statusline+=%c    " 何列目にカーソルがあるか
-  set statusline+=%V    " 画面上の何列目にカーソルがあるか
-  set statusline+=\ \   " 空白スペース2個
-  set statusline+=%P    " ファイル内の何％の位置にあるか
+set statusline+=%=    " 左寄せ項目と右寄せ項目の区切り
+silent! set statusline+=%{fugitive#statusline()}  " Gitのブランチ名を表示
+set statusline+=\ \   " 空白スペース2個
+set statusline+=%1l   " 何行目にカーソルがあるか
+set statusline+=/
+set statusline+=%L    " バッファ内の総行数
+set statusline+=,
+set statusline+=%c    " 何列目にカーソルがあるか
+set statusline+=%V    " 画面上の何列目にカーソルがあるか
+set statusline+=\ \   " 空白スペース2個
+set statusline+=%P    " ファイル内の何％の位置にあるか
 " }}}
 
 " 変わり目の設定 {{{
@@ -596,7 +606,7 @@ nnoremap <Enter> :<C-u>w<CR>
 
 "ローカル用の拡張設定 {{{
 if exists('~/.vim/ext_vimrc.vim')
-  source ~/.vim/ext_vimrc.vim
+  silent! source ~/.vim/ext_vimrc.vim
 endif
 "}}}
 
