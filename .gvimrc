@@ -6,7 +6,7 @@ set noimdisable
 if has('gui_macvim')
   set noimdisableactivate
   "半透明
-  set transparency=4
+  set transparency=21
   "フォント
   set guifont=Ricty\ Regular:h13
   set guioptions-=T

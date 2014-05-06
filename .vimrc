@@ -96,6 +96,7 @@ nnoremap gJ J
 "バックアップファイル系
 set backupdir=~/.vim/backup
 set directory=~/.vim/backup
+set undodir=~/.vim/backup
 
 syntax on
 set number
@@ -564,6 +565,12 @@ augroup RspecSetup
   autocmd BufNewFile,BufRead *.rb call SetupRspec()
 augroup END
 
+" from http://d.hatena.ne.jp/gnarl/20120308/1331180615
+" Don't screw up folds when inserting text that might affect them, until
+" leaving insert mode. Foldmethod is local to the window. Protect against
+" screwing up folding when switching between windows.
+autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
+autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
 
 " }}}
 
