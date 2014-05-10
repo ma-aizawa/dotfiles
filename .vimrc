@@ -46,6 +46,7 @@ NeoBundle 'tpope/vim-rails'
 NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'endwise.vim'
 NeoBundle 'thinca/vim-ref'
+NeoBundle 'https://github.com/slim-template/vim-slim.git'
 "CoffeeScript
 NeoBundle 'https://github.com/kchmck/vim-coffee-script.git'
 "zencoding-vim
@@ -617,3 +618,5 @@ if exists('~/.vim/ext_vimrc.vim')
 endif
 "}}}
 
+" tmp
+cd ~/program/project/ana-log
