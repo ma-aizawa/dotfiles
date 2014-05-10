@@ -1,0 +1,7 @@
+#! /usr/bin/env bash
+
+IFS=$'\n'
+for f in `git status -s | sed -e "s/^ *//" | grep "^D"`; do
+  git rm `echo ${f} | sed -e "s/D *//"`
+done
+

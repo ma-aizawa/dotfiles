@@ -16,6 +16,7 @@
   st = status -s -b
   df = diff --word-diff
   br = branch
+  mi = commit -m
   logg = log --graph --decorate --pretty=format:\"%ad [%cn] %h> %n %Cgreen%d%Creset %s %n\" --name-status
   logs = log --graph --decorate --pretty=format:\"%ad [%cn] %h> %n %Cgreen%d%Creset %s %n\" --stat
 

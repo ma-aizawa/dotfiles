@@ -2,7 +2,7 @@
 
 # define aliases for git
 if type git >/dev/null 2>&1; then
-  alias gs='git status -b'
+  alias gs='git status -bs'
   alias ga='git add'
   alias gl='git log --decorate'
   alias gd='git diff'
@@ -11,5 +11,17 @@ fi
 
 # define aliases for ls
 alias la='ls -a'
-alias ll='ls -l'
+alias ll='ls -la'
+
+git_branch() {
+  __git_ps1 '(git:%s)'
+}
+
+# use bash-completion
+if [ -f /opt/local/share/git-core/git-prompt.sh ]; then
+  . /opt/local/share/git-core/git-prompt.sh
+  export PS1='\[\033[01;32m\]\u@\h\[\033[01;33m\] \w$(git_branch) \n\[\033[01;34m\]\$\[\033[00m\] '
+else
+  export PS1='\[\033[01;32m\]\u@\h\[\033[01;33m\] \w \n\[\033[01;34m\]\$\[\033[00m\] '
+fi
 
