@@ -85,6 +85,7 @@ NeoBundle 'groenewege/vim-less'
 
 " For Arduino
 NeoBundle 'https://github.com/kingbin/vim-arduino.git'
+NeoBundle 'https://github.com/sudar/vim-arduino-syntax.git'
 
 "neobundle }}}
 
