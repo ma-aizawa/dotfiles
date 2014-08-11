@@ -45,8 +45,7 @@
 ;; (setq display-time-day-and-date t) ;曜日・月・日を表示
 (setq display-time-24hr-format t) ;24時間表示
 (display-time-mode t)
-;; バッテリー残量を表示
-(display-battery-mode t)
+
 ;; タイトルバーにファイルのフルパスを表示
 (setq frame-title-format "%f")
 
