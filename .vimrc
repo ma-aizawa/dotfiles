@@ -12,7 +12,9 @@ if has('vim_starting')
 endif
 exec 'set runtimepath='.g:default_runtimepath
 set runtimepath& runtimepath+=~/.vim/bundle/neobundle.vim/
-call neobundle#rc(expand('~/.vim/bundle/'))
+call neobundle#begin(expand('~/.vim/bundle/'))
+
+NeoBundleFetch 'https://github.com/Shougo/neobundle.vim'
 
 "colorscheme
 NeoBundle 'Solarized'
@@ -25,7 +27,7 @@ NeoBundle 'Shougo/vimproc', {
       \ }
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'Shougo/neocomplete'
 NeoBundle 'Shougo/vimfiler'
 NeoBundle 'Shougo/neosnippet'
 
@@ -50,7 +52,7 @@ NeoBundle 'https://github.com/slim-template/vim-slim.git'
 "CoffeeScript
 NeoBundle 'https://github.com/kchmck/vim-coffee-script.git'
 "zencoding-vim
-NeoBundle 'mattn/zencoding-vim'
+"NeoBundle 'mattn/zencoding-vim'
 NeoBundle 'mattn/webapi-vim'
 NeoBundle 'mattn/gist-vim'
 "memo
@@ -87,6 +89,7 @@ NeoBundle 'groenewege/vim-less'
 NeoBundle 'https://github.com/kingbin/vim-arduino.git'
 NeoBundle 'https://github.com/sudar/vim-arduino-syntax.git'
 
+call neobundle#end()
 "neobundle }}}
 
 "基本的な設定 {{{
@@ -99,6 +102,7 @@ nnoremap gJ J
 set backupdir=~/.vim/backup
 set directory=~/.vim/backup
 set undodir=~/.vim/backup
+set backupskip=/tmp/*,/private/tmp/*
 
 syntax on
 set number
@@ -619,5 +623,11 @@ if exists('~/.vim/ext_vimrc.vim')
 endif
 "}}}
 
-" tmp
-cd ~/program/project/ana-log
+" HTMLのインデント {{{
+let g:html_indent_inctags ="html,body,head,tbody"
+" }}}
+
+" 最近の設定 {{{
+nnoremap + <C-a>
+nnoremap - <C-x>
+" }}}
