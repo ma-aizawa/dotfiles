@@ -42,6 +42,7 @@ NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'gregsexton/gitv'
 NeoBundle 'https://github.com/tpope/vim-fugitive.git'
 NeoBundle 'tpope/vim-endwise.git'
+NeoBundle 'vim-scripts/ruby-matchit'
 "Scala
 NeoBundle 'vim-scala'
 NeoBundle 'scala.vim'
