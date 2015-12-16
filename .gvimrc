@@ -80,4 +80,8 @@ if has('vim_starting') && file_name == ""
   autocmd VimEnter * execute 'NERDTree ./'
 endif
 
+if filereadable(expand('~/.gvimrc_local'))
+  source ~/.gvimrc_local
+endif
+
 set showcmd

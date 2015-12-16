@@ -22,3 +22,6 @@ ac-dict/*
 .emacs.d/share/*
 .emacs.d/undohist/*
 .emacs.d/bin/*
+
+.vimrc_local
+.gvimrc_local

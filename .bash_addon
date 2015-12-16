@@ -19,12 +19,20 @@ git_branch() {
 }
 
 # use bash-completion
-if [ -f /opt/local/share/git-core/git-prompt.sh ]; then
-  . /opt/local/share/git-core/git-prompt.sh
-  export PS1='\[\033[01;32m\]\u@\h\[\033[01;33m\] \w$(git_branch) \n\[\033[01;34m\]\$\[\033[00m\] '
-else
-  export PS1='\[\033[01;32m\]\u@\h\[\033[01;33m\] \w \n\[\033[01;34m\]\$\[\033[00m\] '
-fi
+# if [ -f /opt/local/share/git-core/git-prompt.sh ]; then
+#   . /opt/local/share/git-core/git-prompt.sh
+#   export PS1='\[\033[01;32m\]\u@\h\[\033[01;33m\] \w$(git_branch) \n\[\033[01;34m\]\$\[\033[00m\] '
+# elif [ -f $(brew --prefix)/etc/bash_completion ]; then
+#   . $(brew --prefix)/etc/bash_completion
+#   # export PS1='\[\033[01;32m\]\u@\h\[\033[01;33m\] \w$(git_branch) \n\[\033[01;34m\]\$\[\033[00m\] '
+# else
+  if [ -f "$(brew --prefix bash-git-prompt)/share/gitprompt.sh" ]; then
+    GIT_PROMPT_THEME=Default
+    source "$(brew --prefix bash-git-prompt)/share/gitprompt.sh"
+  else
+    export PS1='\[\033[01;32m\]\u@\h\[\033[01;33m\] \w \n\[\033[01;34m\]\$\[\033[00m\] '
+  fi
+# fi
 
 # define aliases for rails development
 alias bu='bundle update'

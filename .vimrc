@@ -29,7 +29,9 @@ NeoBundle 'Shougo/vimshell'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neocomplete'
 NeoBundle 'Shougo/vimfiler'
-NeoBundle 'Shougo/neosnippet'
+" NeoBundle 'Shougo/neosnippet'
+
+NeoBundle 'ctrlpvim/ctrlp.vim'
 
 "vim-scritps repo
 NeoBundle 'vim-scripts/taglist.vim'
@@ -58,7 +60,7 @@ NeoBundle 'mattn/gist-vim'
 "memo
 NeoBundle 'migrs/qfixhowm'
 "YankRing
-NeoBundle 'vim-scripts/YankRing.vim'
+" NeoBundle 'vim-scripts/YankRing.vim'
 NeoBundle 'https://github.com/tomtom/tcomment_vim.git'
 
 "File Explorer
@@ -417,11 +419,11 @@ let g:syntastic_mode_map = { 'mode': 'passive',
 let g:syntastic_javascript_jslint_conf = "--white --undef --nomen --regexp --plusplus --bitwise --newcap --sloppy --vars"
 "}}}
 
-" YankRing {{{
-nnoremap <silent> <F11> :<C-u>YRShow<CR>
-let g:yankring_history_dir = "~/.vim/"
-let g:yankring_history_file = ".yankring_history"
-"}}}
+" " YankRing {{{
+" nnoremap <silent> <F11> :<C-u>YRShow<CR>
+" let g:yankring_history_dir = "~/.vim/"
+" let g:yankring_history_file = ".yankring_history"
+" "}}}
 
 "Zencoding {{{
 let g:user_zen_leader_key = '<C-n>'
@@ -630,4 +632,11 @@ let g:html_indent_inctags ="html,body,head,tbody"
 " 最近の設定 {{{
 nnoremap + <C-a>
 nnoremap - <C-x>
+" }}}
+
+
+" local {{{
+if exists('~/.vimrc_local')
+  source ~/.vimrc_local
+endif
 " }}}
