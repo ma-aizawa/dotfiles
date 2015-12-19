@@ -37,6 +37,8 @@ NeoBundle 'Shougo/vimfiler.vim'
 NeoBundle 'Shougo/neosnippet.vim'
 NeoBundle 'Shougo/neosnippet-snippets'
 
+NeoBundle 'ctrlpvim/ctrlp.vim'
+
 "vim-scritps repo
 NeoBundle 'vim-scripts/taglist.vim'
 
@@ -46,6 +48,7 @@ NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'gregsexton/gitv'
 NeoBundle 'https://github.com/tpope/vim-fugitive.git'
 NeoBundle 'tpope/vim-endwise.git'
+NeoBundle 'vim-scripts/ruby-matchit'
 "Scala
 NeoBundle 'vim-scala'
 NeoBundle 'scala.vim'
@@ -64,7 +67,7 @@ NeoBundle 'mattn/gist-vim'
 "memo
 NeoBundle 'migrs/qfixhowm'
 "YankRing
-NeoBundle 'vim-scripts/YankRing.vim'
+" NeoBundle 'vim-scripts/YankRing.vim'
 NeoBundle 'https://github.com/tomtom/tcomment_vim.git'
 
 "File Explorer
@@ -428,11 +431,11 @@ let g:syntastic_mode_map = { 'mode': 'passive',
 let g:syntastic_javascript_jslint_conf = "--white --undef --nomen --regexp --plusplus --bitwise --newcap --sloppy --vars"
 "}}}
 
-" YankRing {{{
-nnoremap <silent> <F11> :<C-u>YRShow<CR>
-let g:yankring_history_dir = "~/.vim/"
-let g:yankring_history_file = ".yankring_history"
-"}}}
+" " YankRing {{{
+" nnoremap <silent> <F11> :<C-u>YRShow<CR>
+" let g:yankring_history_dir = "~/.vim/"
+" let g:yankring_history_file = ".yankring_history"
+" "}}}
 
 "Zencoding {{{
 let g:user_zen_leader_key = '<C-n>'
@@ -644,7 +647,8 @@ nnoremap + <C-a>
 nnoremap - <C-x>
 " }}}
 
-" Run this vimscript {{
-nnoremap <C-@>e :<C-u>source %<CR>
+" local {{{
+if exists('~/.vimrc_local')
+  source ~/.vimrc_local
+endif
 " }}}
-
