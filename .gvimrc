@@ -47,7 +47,7 @@ endif
 "gui settings {{{
 
 "幅
-set columns=180
+set columns=200
 "高さ
 set lines=62
 "現在行に色をつける

@@ -14,22 +14,28 @@ exec 'set runtimepath='.g:default_runtimepath
 set runtimepath& runtimepath+=~/.vim/bundle/neobundle.vim/
 call neobundle#begin(expand('~/.vim/bundle/'))
 
+
 NeoBundleFetch 'https://github.com/Shougo/neobundle.vim'
 
 "colorscheme
 NeoBundle 'Solarized'
 
 "vim-script by Shougo
-NeoBundle 'Shougo/vimproc', {
-      \ 'build' : {
-      \     'mac' : 'make -f make_mac.mak',
-      \    },
-      \ }
+NeoBundle 'Shougo/vimproc.vim', {
+\ 'build' : {
+\     'windows' : 'tools\\update-dll-mingw',
+\     'cygwin' : 'make -f make_cygwin.mak',
+\     'mac' : 'make',
+\     'linux' : 'make',
+\     'unix' : 'gmake',
+\    },
+\ }
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/neocomplete'
-NeoBundle 'Shougo/vimfiler'
-NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neocomplete.vim'
+NeoBundle 'Shougo/vimfiler.vim'
+NeoBundle 'Shougo/neosnippet.vim'
+NeoBundle 'Shougo/neosnippet-snippets'
 
 "vim-scritps repo
 NeoBundle 'vim-scripts/taglist.vim'
@@ -65,16 +71,13 @@ NeoBundle 'https://github.com/tomtom/tcomment_vim.git'
 NeoBundle 'scrooloose/nerdtree'
 
 "Rsense for ruby. dummy
-NeoBundle 'rsense'
+"NeoBundle 'rsense'
 if filereadable(expand('~/.vim/bundle/rsense/rsense.vim'))
   source ~/.vim/bundle/rsense/rsense.vim
 endif
 
 "For groovy
 NeoBundle 'https://github.com/Reder/groovy.vim'
-
-"My plugin
-NeoBundle 'MasahiroAizawa/helptags-vim'
 
 "JavaScript
 NeoBundle 'scrooloose/syntastic'
@@ -191,8 +194,10 @@ augroup EditVim
 augroup END
 
 "Open vimrc
-nnoremap <Leader>v<Space> :<C-u>edit ~/.vimrc<CR>:e %<CR>
-nnoremap <Leader>v<S-Space> :<C-u>edit ~/.gvimrc<CR>:e %<CR>
+nnoremap [vimrc-pre] <Nop>
+nmap <Leader>v [vimrc-pre]
+nnoremap [vimrc-pre]<Space> :<C-u>edit ~/.vimrc<CR>:e %<CR>
+nnoremap [vimrc-pre]<S-Space> :<C-u>edit ~/.gvimrc<CR>:e %<CR>
 "Reload vimrc
 nnoremap <C-Space><C-Space> :<C-u>source ~/.vimrc<CR>:<C-u>source ~/.gvimrc<CR>:<C-u>e %<CR>
 
@@ -228,9 +233,12 @@ cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
 nnoremap <Leader>t :<C-u>:tabnew<CR>
 
 "diff
-nnoremap <Leader>dt :<C-u>diffthis<CR>
-nnoremap <Leader>du :<C-u>diffupdate<CR>
-nnoremap <Leader>do :<C-u>diffoff<CR>
+nnoremap [diff] <Nop>
+nmap <leader>d [diff]
+
+nnoremap [diff]t :<C-u>diffthis<CR>
+nnoremap [diff]u :<C-u>diffupdate<CR>
+nnoremap [diff]o :<C-u>diffoff<CR>
 
 "編集用 }}}
 
@@ -367,20 +375,23 @@ let g:vimshell_user_prompt='getcwd()'
 
 " unite.vim {{{
 
+nnoremap [unite] <Nop>
+nmap ,u [unite]
+
 " 入力モードで開始する
 let g:unite_enable_start_insert=1
 " バッファ一覧
-nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
+nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
 " ファイル一覧
-nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 " レジスタ一覧
-nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
+nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
 " 最近使用したファイル一覧
-nnoremap <silent> ,um :<C-u>Unite file_mru<CR>
+nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>
 " 常用セット
-nnoremap <silent> ,uu :<C-u>Unite buffer file_mru<CR>
+nnoremap <silent> [unite]u :<C-u>Unite buffer file_mru<CR>
 " 全部乗せ
-nnoremap <silent> ,ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
+nnoremap <silent> [unite]a :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
 
 augroup UnitWindowSetting
   " ウィンドウを分割して開く
@@ -429,6 +440,7 @@ let g:user_zen_leader_key = '<C-n>'
 
 " NERDTree {{{
 nnoremap <C-h><C-h> :<C-u>NERDTreeToggle<CR>
+nnoremap <C-h><C-f> :<C-u>NERDTreeFind<CR>
 "}}}
 
 " Tlist {{{
@@ -631,3 +643,8 @@ let g:html_indent_inctags ="html,body,head,tbody"
 nnoremap + <C-a>
 nnoremap - <C-x>
 " }}}
+
+" Run this vimscript {{
+nnoremap <C-@>e :<C-u>source %<CR>
+" }}}
+
