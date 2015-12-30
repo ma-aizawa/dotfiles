@@ -199,7 +199,17 @@ nmap <Leader>v [vimrc-pre]
 nnoremap [vimrc-pre]<Space> :<C-u>edit ~/.vimrc<CR>:e %<CR>
 nnoremap [vimrc-pre]<S-Space> :<C-u>edit ~/.gvimrc<CR>:e %<CR>
 "Reload vimrc
-nnoremap <C-Space><C-Space> :<C-u>source ~/.vimrc<CR>:<C-u>source ~/.gvimrc<CR>:<C-u>e %<CR>
+if !exists('g:reload_vimrc_defined')
+  function ReloadVimrc()
+    source ~/.vimrc
+    if has('gui_macvim')
+      source ~/.gvimrc
+    endif
+  endfunction
+endif
+let g:reload_vimrc_defined = 1
+nnoremap <C-@><C-@> :<C-u>call ReloadVimrc()<CR>
+nnoremap <C-@><C-e> :<C-u>source %<CR>
 
 "count vim power
 function! CountVimPower()
