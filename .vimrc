@@ -4,7 +4,6 @@
 
 "NeoBundle 準備
 set nocompatible
-filetype off
 filetype plugin indent off
 
 if has('vim_starting')
@@ -86,9 +85,7 @@ NeoBundle 'https://github.com/Reder/groovy.vim'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'jsx/jsx.vim'
 "HTML5 syntax
-NeoBundle 'othree/html5.vim'
 NeoBundle 'https://github.com/tmhadberg/matchit'
-NeoBundle 'hokaccha/vim-html5validator'
 NeoBundle 'groenewege/vim-less'
 
 " For Arduino
