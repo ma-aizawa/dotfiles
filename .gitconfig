@@ -19,6 +19,7 @@
   mi = commit -m
   logg = log --graph --decorate --pretty=format:\"%ad [%cn] %h> %n %Cgreen%d%Creset %s %n\" --name-status
   logs = log --graph --decorate --pretty=format:\"%ad [%cn] %h> %n %Cgreen%d%Creset %s %n\" --stat
+  melt = commit --amend -C HEAD
 
 [push]
 	default = matching

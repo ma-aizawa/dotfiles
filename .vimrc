@@ -49,8 +49,8 @@ NeoBundle 'https://github.com/tpope/vim-fugitive.git'
 NeoBundle 'tpope/vim-endwise.git'
 NeoBundle 'vim-scripts/ruby-matchit'
 "Scala
-NeoBundle 'vim-scala'
-NeoBundle 'scala.vim'
+NeoBundle 'derekwyatt/vim-scala'
+NeoBundle 'gre/play2vim'
 "Ruby
 NeoBundle 'tpope/vim-rails'
 NeoBundle 'vim-ruby/vim-ruby'
@@ -84,7 +84,6 @@ NeoBundle 'https://github.com/Reder/groovy.vim'
 "JavaScript
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'jsx/jsx.vim'
-"HTML5 syntax
 NeoBundle 'https://github.com/tmhadberg/matchit'
 NeoBundle 'groenewege/vim-less'
 
