@@ -38,3 +38,8 @@ git_branch() {
 alias bu='bundle update'
 alias bi='bundle install'
 alias be='bundle exec'
+
+function current_branch() {
+  git branch | grep "\*" | cut -d' ' -f2
+}
+alias cb=current_branch

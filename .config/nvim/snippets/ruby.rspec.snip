@@ -1,0 +1,72 @@
+snippet desc
+abbr describe
+options word
+  describe '${1:DESCRIBE}' do
+    ${2:BODY}
+  end
+
+snippet descc
+abbr describe class
+options word
+  describe ${1:class_name} do
+  end
+
+snippet cont
+abbrt context
+options word
+  contxt '${1:context}' do
+    ${2:BODY}
+  end
+
+snippet l
+abbr let
+options word
+  let(:${1:name}) { ${2:value} }
+
+snippet le
+abbr let!
+options word
+  let!(:${1:name}) { ${2:value} }
+
+snippet ld
+abbr let do
+options word
+  let(:${1:name}) do
+    ${2:expression}
+  end
+
+snippet it
+abbr it expect ()
+options word
+  it { expect(${1:expr}).to ${2:matcher} }
+
+snippet iti
+abbr it is_expected.to
+options word
+  it { is_expected.to ${1:matcher} }
+
+snippet itin
+abbr it is_expected.not_to
+options word
+  it { is_expected.not_to ${1:matcher} }
+
+snippet itb
+abbr it expect {}
+options word
+  it { expect { ${1:expr} }.to ${2:matcher} }
+
+snippet its
+abbrt its is_expect
+options word
+  its(:${1:attr}) { is_expected.to ${2:matcher} }
+
+snippet descl
+abbr described_class
+options word
+  described_class
+
+snippet be_in
+abbr be_instance_of
+options word
+  be_instance_of(${1:class})
+
