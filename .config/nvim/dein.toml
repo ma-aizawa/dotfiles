@@ -108,3 +108,10 @@ repo = 'migrs/qfixhowm'
 hook_add = '''
 source ~/.config/nvim/plugins/qfixhowm.vim
 '''
+
+[[plugins]]
+repo = 'thinca/vim-template'
+hook_add = '''
+let g:template_basedir = '~/.config'
+let g:template_free_pattern = 'template'
+'''
