@@ -72,9 +72,9 @@ nnoremap [nerdtree]<C-f> :<C-u>NERDTreeFind<CR>
 [[plugins]]
 repo = 'raphamorim/lucario'
 hook_add = '''
+autocmd ColorScheme * hi Visual ctermbg=90
+autocmd ColorScheme * hi SpellCap ctermbg=3132
 colorscheme lucario
-hi Visual ctermbg=90
-hi SpellCap ctermbg=3132
 '''
 
 # TODO: 以下はlazyでも動きそうだけど動かなかったのでlazyについて調べて対応する

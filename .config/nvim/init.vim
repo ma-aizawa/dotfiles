@@ -111,8 +111,8 @@ nnoremap [nvim]a :<C-u>vnew ~/.config/nvim/plugins/
 
 " ターミナルモードでノーマルモードにするためのコマンド
 tnoremap <silent> <ESC> <C-\><C-n>
-nnoremap <Leader>g :<C-u>vnew <CR>:terminal<CR>GAsource ~/.bash_profile<CR>
-nnoremap <Leader>eg :<C-u>:terminal<CR>GAsource ~/.bash_profile<CR>
+nnoremap <Leader>h :<C-u>vnew <CR>:terminal<CR>GAsource ~/.bash_profile<CR>
+nnoremap <Leader>eh :<C-u>:terminal<CR>GAsource ~/.bash_profile<CR>
 
 " 個人的に便利だと思うVimの基本設定ラインキングより {{{
 " http://itchyny.hatenablog.com/entry/2014/12/25/090000
@@ -128,6 +128,9 @@ augroup swapchoice-readonly
 augroup END
 " }}}
 " }}}
+
+highlight turn gui=standout cterm=standout
+call matchadd("turn", '.\%>121v')
 
 source ~/.config/nvim/myscript.vim
 
