@@ -6,7 +6,10 @@ if type git >/dev/null 2>&1; then
   alias ga='git add'
   alias gl='git log --decorate'
   alias gd='git diff'
+  alias gds='git diff --staged'
   alias gb='git branch'
+  alias gcm='git commit -m'
+  alias gf='git fetch --all -p'
 fi
 
 # define aliases for ls
@@ -18,21 +21,13 @@ git_branch() {
   __git_ps1 '(git:%s)'
 }
 
-# use bash-completion
-# if [ -f /opt/local/share/git-core/git-prompt.sh ]; then
-#   . /opt/local/share/git-core/git-prompt.sh
-#   export PS1='\[\033[01;32m\]\u@\h\[\033[01;33m\] \w$(git_branch) \n\[\033[01;34m\]\$\[\033[00m\] '
-# elif [ -f $(brew --prefix)/etc/bash_completion ]; then
-#   . $(brew --prefix)/etc/bash_completion
-#   # export PS1='\[\033[01;32m\]\u@\h\[\033[01;33m\] \w$(git_branch) \n\[\033[01;34m\]\$\[\033[00m\] '
-# else
-  if [ -f "$(brew --prefix bash-git-prompt)/share/gitprompt.sh" ]; then
-    GIT_PROMPT_THEME=Default
-    source "$(brew --prefix bash-git-prompt)/share/gitprompt.sh"
-  else
-    export PS1='\[\033[01;32m\]\u@\h\[\033[01;33m\] \w \n\[\033[01;34m\]\$\[\033[00m\] '
-  fi
-# fi
+source "/usr/local/etc/bash_completion.d/git-completion.bash"
+if [ -f "$(brew --prefix bash-git-prompt)/share/gitprompt.sh" ]; then
+  GIT_PROMPT_THEME=Default
+  source "$(brew --prefix bash-git-prompt)/share/gitprompt.sh"
+else
+  export PS1='\[\033[01;32m\]\u@\h\[\033[01;33m\] \w \n\[\033[01;34m\]\$\[\033[00m\] '
+fi
 
 # define aliases for rails development
 alias bu='bundle update'

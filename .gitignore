@@ -25,3 +25,5 @@ ac-dict/*
 
 .vimrc_local
 .gvimrc_local
+
+tags

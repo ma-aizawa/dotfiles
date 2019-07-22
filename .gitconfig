@@ -1,9 +1,8 @@
-
 [user]
   name = masahiro aizawa
   email = kingyodojo@gmail.com
 [core]
-  editor = vim
+  editor = vi
   excludesfile = /Users/masahiro/.gitignore
   autocrlf = false
   filemode = true
@@ -20,6 +19,7 @@
   logg = log --graph --decorate --pretty=format:\"%ad [%cn] %h> %n %Cgreen%d%Creset %s %n\" --name-status
   logs = log --graph --decorate --pretty=format:\"%ad [%cn] %h> %n %Cgreen%d%Creset %s %n\" --stat
   melt = commit --amend -C HEAD
+  pushf = push -f
 
 [push]
 	default = matching
