@@ -27,7 +27,7 @@ nnoremap <silent> ,rc :<C-u>TREPLSendFile<CR>
 nnoremap <silent> ,rl :<C-u>TREPLSendLine<CR>
 vnoremap <silent> ,rl :<C-u>TREPLSendSelection<CR>
 nnoremap <silent> vt :<C-u>Ttoggle<CR>
-nnoremap <silent> vs :terminal<CR>
+nnoremap <silent> vs :terminal<CR>GAsource ~/.bash_profile<CR>
 '''
 
 [[plugins]]
@@ -74,6 +74,7 @@ repo = 'raphamorim/lucario'
 hook_add = '''
 autocmd ColorScheme * hi Visual ctermbg=90
 autocmd ColorScheme * hi SpellCap ctermbg=3132
+autocmd ColorScheme * hi SpellBad ctermbg=818
 colorscheme lucario
 '''
 
@@ -99,6 +100,12 @@ repo = 'tpope/vim-endwise'
 [[plugins]]
 repo = 'ludovicchabant/vim-gutentags'
 
+[[plugins]]
+repo = 'leafgarland/typescript-vim'
+
+[[plugins]]
+repo = 'tasn/vim-tsx'
+
 # colroscheme。採用していないのが気分で切り替える
 # [[plugins]]
 # repo = 'jacoborus/tender.vim'
@@ -115,3 +122,6 @@ hook_add = '''
 let g:template_basedir = '~/.config'
 let g:template_free_pattern = 'template'
 '''
+
+[[plugins]]
+repo = 'rhysd/git-messenger.vim'

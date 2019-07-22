@@ -2,7 +2,7 @@ let g:lightline = {
   \  'active' : {
   \    'left' : [
   \      ['mode', 'paste'],
-  \      ['readonly', 'filename', 'modified', 'ale']
+  \      ['readonly', 'absolutepath', 'modified', 'ale']
   \    ],
   \    'right' : [
   \      ['lineinfo'],

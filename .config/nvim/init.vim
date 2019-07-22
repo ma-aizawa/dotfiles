@@ -116,7 +116,7 @@ nnoremap <Leader>eh :<C-u>:terminal<CR>GAsource ~/.bash_profile<CR>
 
 " 個人的に便利だと思うVimの基本設定ラインキングより {{{
 " http://itchyny.hatenablog.com/entry/2014/12/25/090000
-nnoremap Y y
+nnoremap Y y$
 set display=lastline
 set pumheight=10
 set matchtime=1
