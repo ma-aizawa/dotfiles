@@ -33,7 +33,7 @@ nnoremap <silent> vs :terminal<CR>GAsource ~/.bash_profile<CR>
 [[plugins]]
 repo = 'Shougo/unite.vim'
 hook_add = '''
-nnoremap <silent> fb :<C-u>Unite Buffer<CR>
+nnoremap <silent> <Leader>fb :<C-u>Unite Buffer<CR>
 '''
 
 [[plugins]]
@@ -70,17 +70,24 @@ nnoremap [nerdtree]<C-f> :<C-u>NERDTreeFind<CR>
 '''
 
 [[plugins]]
+repo = 'sgur/vim-editorconfig'
+
+[[plugins]]
 repo = 'raphamorim/lucario'
 hook_add = '''
 autocmd ColorScheme * hi Visual ctermbg=90
 autocmd ColorScheme * hi SpellCap ctermbg=3132
-autocmd ColorScheme * hi SpellBad ctermbg=818
+autocmd ColorScheme * hi SpellBad ctermbg=90
 colorscheme lucario
 '''
 
 # TODO: 以下はlazyでも動きそうだけど動かなかったのでlazyについて調べて対応する
 [[plugins]]
 repo = 'tpope/vim-rails'
+
+[[plugins]]
+repo = 'davidhalter/jedi-vim'
+on_ft = 'python'
 
 [[plugins]]
 repo = 'tpope/vim-surround'
@@ -97,14 +104,30 @@ repo = 'tomtom/tcomment_vim'
 [[plugins]]
 repo = 'tpope/vim-endwise'
 
-[[plugins]]
-repo = 'ludovicchabant/vim-gutentags'
+# [[plugins]]
+# repo = 'ludovicchabant/vim-gutentags'
 
 [[plugins]]
 repo = 'leafgarland/typescript-vim'
 
 [[plugins]]
 repo = 'tasn/vim-tsx'
+
+[[plugins]]
+repo = 'MaxMEllon/vim-jsx-pretty'
+
+[[plugins]]
+repo = 'dart-lang/dart-vim-plugin'
+
+[[plugins]]
+repo = 'chase/vim-ansible-yaml'
+hook_add = '''
+let g:ansible_options = {'ignore_blank_lines': 0}
+augroup filetypedetect
+  au BufRead,BufNewFile *.yaml setfiletype ansible
+  au BufRead,BufNewFile *.yml  setfiletype ansible
+augroup END
+'''
 
 # colroscheme。採用していないのが気分で切り替える
 # [[plugins]]

@@ -5,8 +5,9 @@ endfunction
 function! RemoveTailWhiteSpaces()
   if &filetype == 'markdown'
     return
-   endif
-   silent! %s/\s\+$//g
+  else
+    silent! %s/\s\+$//g
+  endif
 endfunction
 function! RestoreCursor()
   silent! execute "call cursor(" . g:before_line . "," . g:before_column . ")"

@@ -114,6 +114,15 @@ tnoremap <silent> <ESC> <C-\><C-n>
 nnoremap <Leader>h :<C-u>vnew <CR>:terminal<CR>GAsource ~/.bash_profile<CR>
 nnoremap <Leader>eh :<C-u>:terminal<CR>GAsource ~/.bash_profile<CR>
 
+" コマンドラインモードの編集
+cnoremap <C-b> <Left>
+cnoremap <C-f> <Right>
+cnoremap <C-n> <Down>
+cnoremap <C-p> <Up>
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+cnoremap <C-d> <Del>
+
 " 個人的に便利だと思うVimの基本設定ラインキングより {{{
 " http://itchyny.hatenablog.com/entry/2014/12/25/090000
 nnoremap Y y$
@@ -129,8 +138,14 @@ augroup END
 " }}}
 " }}}
 
-highlight turn gui=standout cterm=standout
-call matchadd("turn", '.\%>121v')
+augroup long-line-attention
+  autocmd!
+  autocmd BufRead,BufNewFile * highlight turn gui=standout cterm=standout
+  autocmd BufRead,BufNewFile *.rb call matchadd("turn", '.\%>151v')
+  autocmd BufRead,BufNewFile *.tsx call matchadd("turn", '.\%>151v')
+augroup END
+
+au BufRead,BufNewFile *.axlsx setlocal filetype=ruby
 
 source ~/.config/nvim/myscript.vim
 
