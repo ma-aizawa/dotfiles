@@ -5,6 +5,9 @@ repo = 'Shougo/dein.vim'
 repo = 'cespare/vim-toml'
 
 [[plugins]]
+repo = 'slim-template/vim-slim'
+
+[[plugins]]
 repo = 'Shougo/vimproc.vim'
 hook_post_update = '''
 if dein#util#_is_windows()
@@ -67,6 +70,8 @@ nmap <C-h> [nerdtree]
 
 nnoremap [nerdtree]<C-h> :<C-u>NERDTreeToggle<CR>
 nnoremap [nerdtree]<C-f> :<C-u>NERDTreeFind<CR>
+
+let NERDTreeWinSize =  44
 '''
 
 [[plugins]]

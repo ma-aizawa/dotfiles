@@ -27,3 +27,8 @@ ac-dict/*
 .gvimrc_local
 
 tags
+tags.*
+vendor/bundle
+*/vendor/bundle
+node_modules
+__pycache__

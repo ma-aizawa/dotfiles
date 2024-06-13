@@ -3,7 +3,7 @@
   email = kingyodojo@gmail.com
 [core]
   editor = vi
-  excludesfile = /Users/masahiro/.gitignore
+  excludesfile = /Users/ma-aizawa/.gitignore
   autocrlf = false
   filemode = true
 [color]
@@ -20,6 +20,9 @@
   logs = log --graph --decorate --pretty=format:\"%ad [%cn] %h> %n %Cgreen%d%Creset %s %n\" --stat
   melt = commit --amend -C HEAD
   pushf = push -f
+  cp = cherry-pick
+  # https://qiita.com/awakia/items/f14dc6310e469964a8f7
+  showpr = !"f() { git log --merges --oneline --reverse --ancestry-path $1...master | grep 'Merge pull request #' | head -n 1; }; f"
 
 [push]
 	default = matching
