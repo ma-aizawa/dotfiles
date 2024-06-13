@@ -56,6 +56,9 @@ source ~/.config/nvim/plugins/ale.rc.vim
 repo = 'tpope/vim-fugitive'
 
 [[plugins]]
+repo = 'gregsexton/gitv'
+
+[[plugins]]
 repo = 'itchyny/lightline.vim'
 depends = ['ale', 'vim-gitbranch']
 hook_add = '''
@@ -153,3 +156,12 @@ let g:template_free_pattern = 'template'
 
 [[plugins]]
 repo = 'rhysd/git-messenger.vim'
+
+[[plugins]]
+repo = 'preservim/tagbar'
+hook_add = '''
+nmap <F8> :<C-u>TagbarToggle<CR>
+'''
+
+
+
