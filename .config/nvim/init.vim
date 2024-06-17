@@ -96,6 +96,9 @@ nnoremap gn :<C-u>tabnext<CR>
 nnoremap gp :<C-u>tabprevious<CR>
 nnoremap <Enter> :<C-u>w<CR>
 
+nnoremap gbw :vertical wicmd f<CR>
+nnoremap gbs <C-w>gf
+
 nnoremap <Leader>t :<C-u>tabnew<CR>
 
 nnoremap [nvim] <Nop>
